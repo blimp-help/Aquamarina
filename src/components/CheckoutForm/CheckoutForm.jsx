@@ -99,7 +99,7 @@ const CheckoutForm = () => {
         }
 
         const options = {
-            key: "rzp_test_SRvT8VHgwtCEdw", // same as backend key_id
+            key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
             amount: data.order.amount,
             currency: "INR",
             name: "Aquamarina",

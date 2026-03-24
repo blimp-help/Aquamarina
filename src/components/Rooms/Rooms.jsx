@@ -117,17 +117,17 @@ const Rooms = () => {
 
             </div>
 
-             {/* ✅ MODAL */}
-    {selectedRoom && (
-  <RoomModal
-    room={selectedRoom}
-    images={roomImages[selectedRoom.index] || []}
-    currentIndex={currentIndex}
-    setCurrentIndex={setCurrentIndex}
-    onClose={() => setSelectedRoom(null)}
-    onCheckAvailability={handleClick}
-  />
-)}
+            {/* ✅ MODAL */}
+            {selectedRoom && (
+                <RoomModal
+                    room={selectedRoom}
+                    images={roomImages[selectedRoom.index] || []}
+                    currentIndex={currentIndex}
+                    setCurrentIndex={setCurrentIndex}
+                    onClose={() => setSelectedRoom(null)}
+                    onCheckAvailability={handleClick}
+                />
+            )}
         </section>
     );
 };

@@ -1,55 +1,83 @@
 "use client";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./Hotels.module.css";
 import { FiChevronDown } from "react-icons/fi";
 import { FaCalendarAlt } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { addToCart } from "@/store/cartSlice";
 import moment from "moment";
-
-const rides = [
-  {
-    id: 1,
-    title: "Log Hut Premium",
-    price: 3499,
-    image: "/loghut.jpg",
-    description: "Max 2 Adult & 1 Child."
-  },
-  {
-    id: 2,
-    title: "Pool Facing",
-    price: 2299,
-    image: "/poolfacing.jpg",
-    description: "Max 2 Adult & 1 Child."
-  },
-  {
-    id: 3,
-    title: "Garden Facing",
-    price: 699,
-    image: "/gardenfacing.jpg",
-    description: "Max 2 Adult & 1 Child."
-  }
-];
+import Spinner from "../Spinners/Spinner";
 
 const Hotels = () => {
+  const [rooms, setRooms] = useState([]);
+
+  const [dates, setDates] = useState({});
+  const [guests, setGuests] = useState({});
+  const [quantities, setQuantities] = useState({});
+  const [loading, setLoading] = useState(true);
+
+
+  useEffect(() => {
+    const fetchRooms = async () => {
+      try {
+        setLoading(true); // start loader
+
+        const res = await fetch(
+          "https://aquamarina-backend.onrender.com/rooms/get-rooms"
+        );
+
+        const data = await res.json();
+
+        console.log("Data", data.response);
+
+        if (data.success) {
+          setRooms(data.response || []);
+        } else {
+          setRooms([]);
+        }
+
+      } catch (err) {
+        console.error("Error fetching rooms", err);
+        setRooms([]);
+      } finally {
+        setLoading(false); // stop loader
+      }
+    };
+
+    fetchRooms();
+  }, []);
+
+
+  useEffect(() => {
+    const defaults = {};
+
+    rooms.forEach((room) => {
+      const checkIn = moment().format("YYYY-MM-DD");
+      const checkOut = moment().add(1, "day").format("YYYY-MM-DD");
+
+      defaults[`in-${room._id}`] = checkIn;
+      defaults[`out-${room._id}`] = checkOut;
+    });
+
+    setDates(defaults);
+  }, [rooms]);
 
   const getDefaultDates = () => {
     const defaults = {};
 
-    rides.forEach((ride) => {
+    rooms.forEach((ride) => {
       const checkIn = moment().format("YYYY-MM-DD");
       const checkOut = moment().add(1, "day").format("YYYY-MM-DD");
 
-      defaults[`in-${ride.id}`] = checkIn;
-      defaults[`out-${ride.id}`] = checkOut;
+      defaults[`in-${ride._id}`] = checkIn;
+      defaults[`out-${ride._id}`] = checkOut;
     });
 
     return defaults;
   };
 
-  const [dates, setDates] = useState(getDefaultDates());
-  const [guests, setGuests] = useState({});
-  const [quantities, setQuantities] = useState({});
+
+
   const dispatch = useDispatch();
 
   const dateRefs = useRef({});
@@ -73,7 +101,17 @@ const Hotels = () => {
   };
 
   const openCalendar = (id) => {
-    dateRefs.current[id]?.click();
+    const input = dateRefs.current[id];
+
+    if (!input) return;
+
+    // modern browsers
+    if (input.showPicker) {
+      input.showPicker();
+    } else {
+      input.focus();
+      input.click();
+    }
   };
 
   const formatDate = (date) => {
@@ -155,6 +193,8 @@ const Hotels = () => {
   const increaseQty = (id) => {
     const current = quantities[id] || 1;
 
+    if (current >= 10) return; // max rooms
+
     setQuantities({
       ...quantities,
       [id]: current + 1
@@ -164,7 +204,7 @@ const Hotels = () => {
   const decreaseQty = (id) => {
     const current = quantities[id] || 1;
 
-    if (current === 10) return;
+    if (current <= 1) return; // minimum 1 room
 
     setQuantities({
       ...quantities,
@@ -172,35 +212,75 @@ const Hotels = () => {
     });
   };
 
+    if (loading) {
+   return (
+     <div style={{ display: "flex", justifyContent: "center", padding: "40px" }}>
+       <Spinner type="ring" size={50} />
+     </div>
+   );
+ }
 
-  const handleAddToCart = (hotel) => {
-  const quantity = quantities[hotel.id] || 1;
-  const checkIn = dates[`in-${hotel.id}`];
-  const checkOut = dates[`out-${hotel.id}`];
+  const handleAddToCart = async (hotel) => {
+    const quantity = quantities[hotel._id] || 1;
 
-  const adults = guests[hotel.id]?.adults ?? 1;
-  const children = guests[hotel.id]?.children ?? 0;
+    const checkIn = dates[`in-${hotel._id}`];
+    const checkOut = dates[`out-${hotel._id}`];
 
-  const days = calculateDays(checkIn, checkOut);
+    const adults = guests[hotel._id]?.adults ?? 1;
+    const children = guests[hotel._id]?.children ?? 0;
 
-  dispatch(
-    addToCart({
-      id: hotel.id,
-      type: "hotel",
-      title: hotel.title,
-      price: hotel.price,
-      image: hotel.image,
-      description: hotel.description,
-      quantity,
-      checkIn,
-      checkOut,
-      adults,
-      children,
-      days,
-      total: hotel.price * quantity * days,
-    })
-  );
-};
+    const days = calculateDays(checkIn, checkOut);
+
+    try {
+      // ✅ check availability first
+      const res = await fetch(
+        "https://aquamarina-backend.onrender.com/rooms/check-room-availability",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            roomId: hotel._id,
+            checkIn,
+            checkOut,
+            qty: quantity
+          })
+        }
+      );
+
+      const data = await res.json();
+
+      if (!data.success) {
+        alert(data.message); // show error
+        return;
+      }
+
+
+      dispatch(
+        addToCart({
+          id: hotel._id,
+          type: "hotel",
+          title: hotel.title,
+          price: hotel.price,
+          image: hotel.featureImage.url,
+          shortDescription: hotel.shortDescription,
+          description: hotel.description,
+          quantity,
+          checkIn,
+          checkOut,
+          adults,
+          children,
+          days,
+          total: hotel.price * quantity * days,
+        })
+      );
+    }
+    catch (err) {
+      console.error("Availability check failed", err);
+      alert("Unable to check room availability");
+    }
+  };
 
   return (
     <section className={styles.section}>
@@ -210,17 +290,17 @@ const Hotels = () => {
 
       <div className={styles.grid}>
 
-        {rides.map((ride) => {
+        {rooms.map((ride) => {
 
-          const adults = guests[ride.id]?.adults ?? 1;
-          const children = guests[ride.id]?.children ?? 0;
+          const adults = guests[ride._id]?.adults ?? 1;
+          const children = guests[ride._id]?.children ?? 0;
 
           return (
-            <div key={ride.id} className={styles.card}>
+            <div key={ride._id} className={styles.card}>
 
               {/* IMAGE */}
               <div className={styles.imageWrapper}>
-                <img src={ride.image} alt={ride.title} />
+                <img src={ride.featureImage.url} alt={ride.title} />
 
                 <div className={styles.priceTag}>
                   <div className={styles.price}>₹{ride.price}/-</div>
@@ -232,7 +312,7 @@ const Hotels = () => {
               <div className={styles.cardContent}>
 
                 <h4>{ride.title}</h4>
-                <p className={styles.description}>{ride.description}</p>
+                <p className={styles.description}>{ride.shortDescription}</p>
 
                 {/* CHECK-IN */}
                 <div className={styles.field}>
@@ -240,26 +320,26 @@ const Hotels = () => {
 
                   <div
                     className={styles.dateBox}
-                    onClick={() => openCalendar(`in-${ride.id}`)}
+                    onClick={() => openCalendar(`in-${ride._id}`)}
                   >
                     <div className={styles.calendarCircle}>
                       <FaCalendarAlt />
                     </div>
 
                     <span className={styles.dateText}>
-                      {formatDate(dates[`in-${ride.id}`])}
+                      {formatDate(dates[`in-${ride._id}`])}
                     </span>
 
                     <FiChevronDown className={styles.arrow} />
 
                     <input
-                      ref={(el) => (dateRefs.current[`in-${ride.id}`] = el)}
+                      ref={(el) => (dateRefs.current[`in-${ride._id}`] = el)}
                       type="date"
                       className={styles.hiddenDate}
                       min={today}
-                      value={dates[`in-${ride.id}`] || ""}
+                      value={dates[`in-${ride._id}`] || ""}
                       onChange={(e) =>
-                        handleDateChange(`in-${ride.id}`, e.target.value)
+                        handleDateChange(`in-${ride._id}`, e.target.value)
                       }
                     />
                   </div>
@@ -271,28 +351,55 @@ const Hotels = () => {
 
                   <div
                     className={styles.dateBox}
-                    onClick={() => openCalendar(`out-${ride.id}`)}
+                    onClick={() => openCalendar(`out-${ride._id}`)}
                   >
                     <div className={styles.calendarCircle}>
                       <FaCalendarAlt />
                     </div>
 
                     <span className={styles.dateText}>
-                      {formatNextDate(dates[`out-${ride.id}`])}
+                      {formatNextDate(dates[`out-${ride._id}`])}
                     </span>
 
                     <FiChevronDown className={styles.arrow} />
 
                     <input
-                      ref={(el) => (dateRefs.current[`out-${ride.id}`] = el)}
+                      ref={(el) => (dateRefs.current[`out-${ride._id}`] = el)}
                       type="date"
                       className={styles.hiddenDate}
                       min={today}
-                      value={dates[`out-${ride.id}`] || ""}
+                      value={dates[`out-${ride._id}`] || ""}
                       onChange={(e) =>
-                        handleDateChange(`out-${ride.id}`, e.target.value)
+                        handleDateChange(`out-${ride._id}`, e.target.value)
                       }
                     />
+                  </div>
+                </div>
+
+                {/* Quantity */}
+                <div className={styles.priceRow}>
+                  <span className={styles.dynamicPrice}>Rooms:</span>
+
+                  <div className={styles.quantityBox}>
+                    <button
+                      onClick={() => decreaseQty(ride._id)}
+                      className={styles.qtyBtn}
+                      disabled={(quantities[ride._id] || 1) === 1}
+                    >
+                      −
+                    </button>
+
+                    <span className={styles.qtyNumber}>
+                      {quantities[ride._id] || 1}
+                    </span>
+
+                    <button
+                      onClick={() => increaseQty(ride._id)}
+                      className={styles.qtyBtn}
+                      disabled={(quantities[ride._id] || 1) === 10}
+                    >
+                      +
+                    </button>
                   </div>
                 </div>
 
@@ -302,7 +409,7 @@ const Hotels = () => {
 
                   <div className={styles.quantityBox}>
                     <button
-                      onClick={() => decreaseAdult(ride.id)}
+                      onClick={() => decreaseAdult(ride._id)}
                       className={styles.qtyBtn}
                       disabled={adults === 1}
                     >
@@ -312,7 +419,7 @@ const Hotels = () => {
                     <span className={styles.qtyNumber}>{adults}</span>
 
                     <button
-                      onClick={() => increaseAdult(ride.id)}
+                      onClick={() => increaseAdult(ride._id)}
                       className={styles.qtyBtn}
                       disabled={adults === 2}
                     >
@@ -327,7 +434,7 @@ const Hotels = () => {
 
                   <div className={styles.quantityBox}>
                     <button
-                      onClick={() => decreaseChild(ride.id)}
+                      onClick={() => decreaseChild(ride._id)}
                       className={styles.qtyBtn}
                       disabled={children === 0}
                     >
@@ -337,7 +444,7 @@ const Hotels = () => {
                     <span className={styles.qtyNumber}>{children}</span>
 
                     <button
-                      onClick={() => increaseChild(ride.id)}
+                      onClick={() => increaseChild(ride._id)}
                       className={styles.qtyBtn}
                       disabled={children === 1}
                     >

@@ -1,11 +1,12 @@
 "use client";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./ParkPass.module.css";
 import { FiChevronDown } from "react-icons/fi";
 import { FaCalendarAlt } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { addToCart } from "@/store/cartSlice";
 import moment from "moment";
+import Spinner from "../Spinners/Spinner";
 
 const rides = [
     {
@@ -57,6 +58,8 @@ const ParkPass = () => {
     const [dates, setDates] = useState({});
     const [quantities, setQuantities] = useState({});
     const dispatch = useDispatch();
+      const [loading, setLoading] = useState(true);
+
 
 
 
@@ -67,7 +70,17 @@ const ParkPass = () => {
     };
 
     const openCalendar = (id) => {
-        dateRefs.current[id]?.click();
+        const input = dateRefs.current[id];
+
+        if (!input) return;
+
+        // modern browsers
+        if (input.showPicker) {
+            input.showPicker();
+        } else {
+            input.focus();
+            input.click();
+        }
     };
 
     const formatDate = (date) => {
@@ -98,6 +111,17 @@ const ParkPass = () => {
         });
     };
 
+    useEffect(() => {
+  setLoading(false);
+}, []);
+
+     if (loading) {
+       return (
+         <div style={{ display: "flex", justifyContent: "center", padding: "40px" }}>
+           <Spinner type="ring" size={50} />
+         </div>
+       );
+    }
 
     const handleAddToCart = (ride) => {
         const quantity = quantities[ride.id] || 10;
@@ -117,7 +141,7 @@ const ParkPass = () => {
                 image: ride.image,
                 description: ride.description,
                 quantity,
-                date,
+                date: today,
                 total: ride.price * quantity,
             })
         );
@@ -165,7 +189,6 @@ const ParkPass = () => {
                                     className={styles.dateBox}
                                     onClick={() => openCalendar(ride.id)}
                                 >
-
                                     <div className={styles.calendarCircle}>
                                         <FaCalendarAlt />
                                     </div>
@@ -187,7 +210,6 @@ const ParkPass = () => {
                                         }
                                         onClick={(e) => e.stopPropagation()}
                                     />
-
                                 </div>
                             </div>
 

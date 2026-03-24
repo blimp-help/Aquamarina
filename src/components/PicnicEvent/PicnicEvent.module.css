@@ -181,19 +181,26 @@
 
 /* DATE BOX */
 
-.dateBox{
-  display:flex;
-  align-items:center;
-  gap:10px;
+.dateBox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 
-  border:2px solid #1e5bd8;
-  border-radius:12px;
+  border: 2px solid #1e5bd8;
+  border-radius: 12px;
+  padding: 6px 12px;
+  min-width: 200px;
 
-  padding:6px 12px;
-  min-width:200px;
+  position: relative;
+  cursor: pointer;
 
-  position:relative;
-  cursor:pointer;
+  /* allow the span & icon to not block the input */
+  pointer-events: none;  
+}
+
+/* But the icons and text inside need pointer-events for visual feedback */
+.dateBox > *:not(.hiddenDate) {
+  pointer-events: auto;
 }
 
 /* CALENDAR ICON */
@@ -229,13 +236,17 @@
 
 /* HIDDEN DATE INPUT */
 
-.hiddenDate{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  opacity:0;
-  cursor:pointer;
+.hiddenDate {
+  position: absolute;
+  top: 5px;
+  left: -5px;
+  width: 100%;
+  height: 100%;
+  opacity: 0;          /* fully hidden */
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  z-index: 2;          /* ensure it's on top */
 }
 
 /* TIME SLOT */
@@ -492,6 +503,10 @@ color:var(--primary-blue);
 
 .qtyNumber{
   font-size:15px;
+}
+
+.spotLabel{
+  font-size: 12px;
 }
 
 }

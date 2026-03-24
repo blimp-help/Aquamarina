@@ -81,7 +81,7 @@ const CartDrawer = () => {
                                 <div className={styles.details}>
                                     <h4 className={styles.title}>{item.title}</h4>
                                     <p className={styles.subtitle}>
-                                        {item.description}
+                                        {item.type === "hotel" ? item.shortDescription : item.description}
                                     </p>
 
                                     {/* Controls Container */}

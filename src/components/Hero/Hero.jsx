@@ -1,6 +1,8 @@
 "use client";
 import React, { useState } from "react";
 import styles from "./Hero.module.css";
+import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import { FaPlay } from "react-icons/fa";
 
 const slides = [
   {
@@ -59,7 +61,7 @@ const Hero = () => {
             className={styles.playButton}
             onClick={() => setPlayVideo(true)}
           >
-            ▶
+         <FaPlay size={18} />
           </button>
         </div>
       )}
@@ -76,20 +78,41 @@ const Hero = () => {
       {/* Overlay */}
       <div className={styles.overlay}></div>
 
-      {/* Content */}
-      <div className={`container ${styles.heroContent}`}>
+      {/* <div className={`container ${styles.heroContent}`}>
         <div className={styles.textContent}>
           <h1>{slide.title}</h1>
           <p>{slide.description}</p>
           <button className={styles.detailsbtn}>Get Details</button>
         </div>
 
-        {/* Controls */}
         <div className={styles.sliderControls}>
-          <button onClick={prevSlide} className={styles.arrow}>←</button>
-          <button onClick={nextSlide} className={styles.arrow}>→</button>
+          <button onClick={prevSlide} className={styles.arrow}><FiChevronLeft /></button>
+          <button onClick={nextSlide} className={styles.arrow}><FiChevronRight /></button>
         </div>
+      </div> */}
+
+      <div className={`container ${styles.heroContent}`}>
+  <div className={styles.textContent}>
+    <h1>{slide.title}</h1>
+    <p>{slide.description}</p>
+
       </div>
+
+    <div className={styles.actionRow}>
+      <button className={styles.detailsbtn}>Get Details</button>
+
+      {/* Controls */}
+      <div className={styles.sliderControls}>
+        <button onClick={prevSlide} className={styles.arrow}>
+          <FiChevronLeft />
+        </button>
+        <button onClick={nextSlide} className={styles.arrow}>
+          <FiChevronRight />
+        </button>
+    </div>
+
+  </div>
+</div>
 
     </section>
   );

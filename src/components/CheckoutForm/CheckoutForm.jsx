@@ -61,7 +61,6 @@ const CheckoutForm = () => {
         }
     };
 
-
     const handlePayment = async () => {
         if (!isValidEmail(form.email)) {
             alert("Please enter a valid email address ❌");
@@ -141,7 +140,7 @@ const CheckoutForm = () => {
             prefill: {
                 name: form.name,
                 email: form.email,
-                contact: form.phone,
+                contact: form.phone.replace(/^\+?91/, ""),
             },
 
             theme: {

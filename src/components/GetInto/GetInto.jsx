@@ -22,7 +22,7 @@ const GetInto = () => {
           </p>
         </div>
       </div>
-
+{/* 
       <div className={styles.videoHero} onClick={stopVideo}>
         {!play && (
           <img
@@ -35,7 +35,7 @@ const GetInto = () => {
         {play && (
           <video
             className={styles.media}
-            src="/VideoProject.webm"
+            src="/video.mp4"
             autoPlay
             muted
             controls
@@ -66,7 +66,19 @@ const GetInto = () => {
             )}
           </div>
         </div>
-      </div>
+      </div> */}
+
+       <div className={styles.videoHero}>
+        {/* ✅ Always Video */}
+        <video
+          className={styles.media}
+          src="/video.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+        />
+        </div>
     </section>
   );
 };

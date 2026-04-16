@@ -29,9 +29,9 @@ const Foods = () => {
       <div className={styles.container}>
         {/* Heading */}
         <div className={styles.heading}>
-          <h2>Fuel Up. Drive Back</h2>
+          <h2>Food & Dining</h2>
           <p>
-           Take a break and recharge with a satisfying meal before heading back on your journey. Enjoy a comfortable space, tasty food, and refreshing drinks that help you relax after a fun-filled day. It’s the perfect way to refuel and get ready for the road ahead.
+           Refuel and refresh with a wide range of delicious food and beverages. From quick snacks to full meals, Aqua Marina offers something to satisfy every craving.
           </p>
         </div>
 

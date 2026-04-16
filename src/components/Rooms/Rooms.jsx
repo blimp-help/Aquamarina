@@ -28,6 +28,13 @@ const stays = [
         description:
             "Enjoy a cozy wooden retreat designed for comfort and relaxation. With modern amenities and a peaceful atmosphere, it’s the perfect place to unwind after a fun-filled day at the water park.",
     },
+     {
+        title: "Stay with Amazing View",
+        tag: "Pool Facing",
+        image: "/room2.jpg",
+        description:
+            "Enjoy a relaxing stay with beautiful views of the pool right from your room. Perfect for guests who love a vibrant atmosphere while staying close to the fun and excitement of the water park.",
+    },
 ];
 
 const Rooms = () => {
@@ -44,6 +51,7 @@ const Rooms = () => {
         0: ["/room1.jpg", "/room2.jpg", "/room3.jpg"],
         1: ["/room2.jpg", "/room1.jpg"],
         2: ["/room3.jpg", "/room2.jpg"],
+        3: ["/room2.jpg", "/room3.jpg"],
     };
 
     const handleClick = () => {

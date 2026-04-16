@@ -17,7 +17,7 @@ export default function Home() {
   <Hero />
   <Services />
   <Rides />
-  <LandingImage />
+  {/* <LandingImage /> */}
   <GetInto />
   <Rooms />
   <Foods />

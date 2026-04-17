@@ -34,13 +34,22 @@ const CartDrawer = () => {
 
     const totalPrice = cartItems.reduce((sum, item) => {
         const spot = item.spotPrice || 0;
-        const quantity = item.quantity || 1;
 
-        // ✅ If hotel → include days
-        const itemTotal =
-            item.type === "hotel"
-                ? item.price * quantity * (item.days || 1)
-                : item.price * quantity;
+        let itemTotal = 0;
+
+        if (item.type === "hotel") {
+            itemTotal = item.price * (item.quantity || 1) * (item.days || 1);
+
+        } else if (item.type === "park") {
+            // ✅ NEW LOGIC
+            itemTotal =
+                (item.adults || 0) * item.price +
+                (item.children || 0) * item.childPrice;
+
+        } else {
+            // event or others
+            itemTotal = item.price * (item.quantity || 1);
+        }
 
         return sum + spot + itemTotal;
     }, 0);
@@ -79,10 +88,24 @@ const CartDrawer = () => {
 
                                 {/* Content */}
                                 <div className={styles.details}>
-                                    <h4 className={styles.title}>{item.title}</h4>
+                                    <div className={styles.headerRow}>
+                                        <h4 className={styles.title}>{item.title}</h4>
+
+                                        <button
+                                            className={styles.deleteBtn}
+                                            onClick={() => dispatch(removeFromCart(index))}
+                                        >
+                                            <FiTrash2 size={20} />
+                                        </button>
+                                    </div>
+
+                                    {/* SUBTITLE */}
                                     <p className={styles.subtitle}>
-                                        {item.type === "hotel" ? item.shortDescription : item.description}
+                                        {item.type === "hotel"
+                                            ? item.shortDescription
+                                            : item.description}
                                     </p>
+
 
                                     {/* Controls Container */}
                                     {/* <div className={styles.controls}>
@@ -108,37 +131,90 @@ const CartDrawer = () => {
                                     </div> */}
 
                                     <div className={styles.controls}>
+
+                                        {/* 🏨 HOTEL → READ ONLY */}
                                         {item.type === "hotel" ? (
-                                            // Show adults & children counts for hotels
+
                                             <div className={styles.adultsChildren}>
                                                 <span>Adults: {item.adults ?? 1}</span>
                                                 <span>Children: {item.children ?? 0}</span>
                                             </div>
+
+                                        ) : item.type === "park" ? (
+
+                                            /* 🎢 PARK → EDITABLE */
+                                            <div className={styles.parkAdultsChildren}>
+
+                                                {/* ADULT */}
+                                                <div className={styles.inlineControl}>
+                                                    <span>Adult:</span>
+
+                                                    <div className={styles.qtyBox}>
+                                                        <button
+                                                            onClick={() => dispatch(decreaseQuantity({ index, type: "adult" }))}
+                                                            disabled={
+                                                                item.subtype === "group"
+                                                                    ? item.adults <= 10
+                                                                    : item.subtype === "family"
+                                                                        ? item.adults <= 4
+                                                                        : item.adults <= 1
+                                                            }                                                        >
+                                                            <AiOutlineMinus size={16} />
+                                                        </button>
+
+                                                        <span>{item.adults ?? 1}</span>
+
+                                                        <button
+                                                            onClick={() => dispatch(increaseQuantity({ index, type: "adult" }))}
+                                                        >
+                                                            <AiOutlinePlus size={16} />
+                                                        </button>
+                                                    </div>
+                                                </div>
+
+                                                {/* CHILD */}
+                                                <div className={styles.inlineControl}>
+                                                    <span>Child:</span>
+
+                                                    <div className={styles.qtyBox}>
+                                                        <button
+                                                            onClick={() => dispatch(decreaseQuantity({ index, type: "child" }))}
+                                                              disabled={(item.children || 0) <= 0}
+                                                      >
+                                                            <AiOutlineMinus size={16} />
+                                                        </button>
+
+                                                        <span>{item.children ?? 0}</span>
+
+                                                        <button
+                                                            onClick={() => dispatch(increaseQuantity({ index, type: "child" }))}
+                                                        >
+                                                            <AiOutlinePlus size={16} />
+                                                        </button>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
                                         ) : (
-                                            // Quantity controls for other items
+
+                                            /* 🎟️ EVENT / OTHERS */
                                             <div className={styles.qtyBox}>
                                                 <button
-                                                    onClick={() => dispatch(decreaseQuantity(index))}
-                                                    disabled={item.quantity <= 10} // min 10
+                                                    onClick={() => dispatch(decreaseQuantity({ index }))}
+                                                    disabled={item.quantity <= 1}
                                                 >
                                                     <AiOutlineMinus size={18} />
                                                 </button>
 
                                                 <span>{item.quantity}</span>
 
-                                                <button onClick={() => dispatch(increaseQuantity(index))}>
+                                                <button onClick={() => dispatch(increaseQuantity({ index }))}>
                                                     <AiOutlinePlus size={18} />
                                                 </button>
                                             </div>
                                         )}
 
-                                        {/* Delete button for all */}
-                                        <button
-                                            className={styles.deleteBtn}
-                                            onClick={() => dispatch(removeFromCart(index))}
-                                        >
-                                            <FiTrash2 size={20} />
-                                        </button>
                                     </div>
 
                                 </div>

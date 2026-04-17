@@ -7,11 +7,13 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "@/store/cartSlice";
 import moment from "moment";
 import Spinner from "../Spinners/Spinner";
+import { toggleCart } from "@/store/uiSlice";
 
 const rides = [
     {
         id: 1,
-        type: "single",
+        type: "park",
+        subtype: "single",
         title: "Single Day Pass(Weekday)",
         adultPrice: 500,
         childPrice: 300,
@@ -20,7 +22,8 @@ const rides = [
     },
     {
         id: 2,
-        type: "single",
+        type: "park",
+        subtype: "single",
         title: "Single Day Pass(Weekend)",
         adultPrice: 500,
         childPrice: 300,
@@ -30,32 +33,42 @@ const rides = [
     {
         id: 3,
         title: "Group Offer (Weekday)",
-        type: "group",
-        price: 450,
+        type: "park",
+        subtype: "group",
+        adultPrice: 450,
+        childPrice: 200,
         image: "/passimage.jpg",
         description: "Min 10 people. Access to all rides."
     },
     {
         id: 4,
         title: "Group Offer (Weekend)",
-        type: "group",
-        price: 550,
+        type: "park",
+        subtype: "group",
+        adultPrice: 450,
+        childPrice: 200,
         image: "/passimage.jpg",
         description: "Min 10 people. Access to all rides."
     },
     {
         id: 5,
         title: "Family Pack",
-        price: 650,
+        type: "park",
+        subtype: "family",
+        adultPrice: 500,
+        childPrice: 300,
         image: "/passimage.jpg",
-        description: "Min 10 people. Access to all rides."
+        description: "Min 4 people. Access to all rides."
     },
     {
         id: 6,
         title: "Family Pack",
-        price: 650,
+        type: "park",
+        subtype: "family",
+        adultPrice: 500,
+        childPrice: 300,
         image: "/passimage.jpg",
-        description: "Min 10 people. Access to all rides."
+        description: "Min 4 people. Access to all rides."
     }
 
 ];
@@ -133,28 +146,61 @@ const ParkPass = () => {
     }
 
     const handleAddToCart = (ride) => {
-        const quantity = quantities[ride.id] || 10;
         const date = dates[ride.id];
 
-        //   if (!date) {
-        //     alert("Please select a date");
-        //     return;
-        //   }
+        const adults = adultQty[ride.id] || (
+            ride.subtype === "group" ? 10 :
+                ride.subtype === "family" ? 4 : 1
+        );
+
+        const children = childQty[ride.id] || 0;
+
+        const totalPeople = adults + children;
+
+        const min =
+            ride.subtype === "group" ? 10 :
+                ride.subtype === "family" ? 4 : 1;
+
+        // ❌ Prevent invalid add
+        if (totalPeople < min) return;
 
         dispatch(
             addToCart({
                 id: ride.id,
                 type: "park",
+                subtype: ride.subtype,
                 title: ride.title,
-                price: ride.price,
+                price: ride.adultPrice,
+                childPrice: ride.childPrice,
                 image: ride.image,
                 description: ride.description,
-                quantity,
+                adults,
+                children,
+                quantity: totalPeople, // derived
                 date: today,
-                total: ride.price * quantity,
             })
         );
+
+        // ✅ RESET VALUES
+    setAdultQty((prev) => ({
+        ...prev,
+        [ride.id]:
+            ride.subtype === "group"
+                ? 10
+                : ride.subtype === "family"
+                ? 4
+                : 1,
+    }));
+
+    setChildQty((prev) => ({
+        ...prev,
+        [ride.id]: 0,
+    }));
+
+    // ✅ OPEN CART
+    dispatch(toggleCart());
     };
+
 
     const increaseAdult = (id) => {
         setAdultQty({
@@ -209,8 +255,8 @@ const ParkPass = () => {
 
                             <div className={styles.priceTag}>
                                 <div className={styles.price}>
-                                    {ride.type === "group" ? (
-                                        <>₹{ride.price}/-</>
+                                    {ride.subtype === "group" ? (
+                                        <>₹{ride.adultPrice}/-</>
                                     ) : (
                                         <>
                                             ₹{ride.adultPrice}/-
@@ -264,123 +310,176 @@ const ParkPass = () => {
                             </div>
 
                             {/* PRICE + QUANTITY */}
-                            {ride.type === "group" ? (
 
-                                // 🟢 GROUP UI (your existing code)
-                                <div className={styles.priceRow}>
+                            {ride.subtype === "single" ? (
 
-                                    <span className={styles.dynamicPrice}>
-                                        Rs. - {(ride.price * (quantities[ride.id] || 10)).toFixed(2)}
-                                    </span>
+                                // 🔵 SINGLE
+                                (() => {
+                                    const adults = adultQty[ride.id] || 1;
+                                    const children = childQty[ride.id] || 0;
 
-                                    <div className={styles.quantityBox}>
+                                    return (
+                                        <div className={styles.priceColumn}>
 
-                                        <button
-                                            onClick={() => decreaseQty(ride.id)}
-                                            className={styles.qtyBtn}
-                                            disabled={(quantities[ride.id] || 10) === 10}
-                                        >
-                                            −
-                                        </button>
+                                            {/* ADULT */}
+                                            <div className={styles.priceRow}>
+                                                <span className={styles.priceLabel}>
+                                                    Adult (₹{ride.adultPrice})
+                                                </span>
 
-                                        <span className={styles.qtyNumber}>
-                                            {quantities[ride.id] || 10}
-                                        </span>
+                                                <div className={styles.quantityBox}>
+                                                    <button
+                                                        className={styles.qtyBtn}
+                                                        onClick={() => decreaseAdult(ride.id)}
+                                                        disabled={adults === 1}
+                                                    >−</button>
 
-                                        <button
-                                            onClick={() => increaseQty(ride.id)}
-                                            className={styles.qtyBtn}
-                                        >
-                                            +
-                                        </button>
+                                                    <span className={styles.qtyNumber}>{adults}</span>
 
-                                    </div>
+                                                    <button
+                                                        className={styles.qtyBtn}
+                                                        onClick={() => increaseAdult(ride.id)}
+                                                    >+</button>
+                                                </div>
+                                            </div>
 
-                                </div>
+                                            {/* CHILD */}
+                                            <div className={styles.priceRow}>
+                                                <span className={styles.priceLabel}>
+                                                    Child (₹{ride.childPrice})
+                                                </span>
+
+                                                <div className={styles.quantityBox}>
+                                                    <button
+                                                        className={styles.qtyBtn}
+                                                        onClick={() => decreaseChild(ride.id)}
+                                                        disabled={children === 0}
+                                                    >−</button>
+
+                                                    <span className={styles.qtyNumber}>{children}</span>
+
+                                                    <button
+                                                        className={styles.qtyBtn}
+                                                        onClick={() => increaseChild(ride.id)}
+                                                    >+</button>
+                                                </div>
+                                            </div>
+
+                                            {/* TOTAL */}
+                                            {/* <div className={styles.totalRow}>
+                                                Rs. - {(
+                                                    (ride.adultPrice * adults) +
+                                                    (ride.childPrice * children)
+                                                ).toFixed(2)}
+                                            </div> */}
+
+                                            <button
+                                                className={styles.addBtn}
+                                                onClick={() => handleAddToCart(ride)}
+                                            >
+                                                Add To Cart
+                                            </button>
+
+                                        </div>
+                                    );
+                                })()
 
                             ) : (
 
-                                // 🔵 SINGLE PACK UI
-                                <div
-                                    className={styles.priceRow}
-                                    style={{ flexDirection: "column", alignItems: "stretch", gap: "10px" }}
-                                >
+                                // 🟢 GROUP + FAMILY
+                                (() => {
+                                    const min = ride.subtype === "group" ? 10 : 4;
 
-                                    {/* ADULT */}
-                                    <div className={styles.priceRow}>
-                                        <span className={styles.priceLabel}>Adult (₹{ride.adultPrice})</span>
+                                    const adults = adultQty[ride.id] || min;
+                                    const children = childQty[ride.id] || 0;
+                                    const totalPeople = adults + children;
 
-                                        <div className={styles.quantityBox}>
+                                    return (
+                                        <div className={styles.priceColumn}>
+
+                                            {/* ADULT */}
+                                            <div className={styles.priceRow}>
+                                                <span className={styles.priceLabel}>
+                                                    Adult (₹{ride.adultPrice})
+                                                </span>
+
+                                                <div className={styles.quantityBox}>
+                                                    <button
+                                                        className={styles.qtyBtn}
+                                                        onClick={() =>
+                                                            setAdultQty({
+                                                                ...adultQty,
+                                                                [ride.id]: Math.max(min, adults - 1)
+                                                            })
+                                                        }
+                                                        disabled={adults === min}
+                                                    >−</button>
+
+                                                    <span className={styles.qtyNumber}>{adults}</span>
+
+                                                    <button
+                                                        className={styles.qtyBtn}
+                                                        onClick={() =>
+                                                            setAdultQty({
+                                                                ...adultQty,
+                                                                [ride.id]: adults + 1
+                                                            })
+                                                        }
+                                                    >+</button>
+                                                </div>
+                                            </div>
+
+                                            {/* CHILD */}
+                                            <div className={styles.priceRow}>
+                                                <span className={styles.priceLabel}>
+                                                    Child (₹{ride.childPrice})
+                                                </span>
+
+                                                <div className={styles.quantityBox}>
+                                                    <button
+                                                        className={styles.qtyBtn}
+                                                        onClick={() => decreaseChild(ride.id)}
+                                                        disabled={children === 0}
+                                                    >−</button>
+
+                                                    <span className={styles.qtyNumber}>{children}</span>
+
+                                                    <button
+                                                        className={styles.qtyBtn}
+                                                        onClick={() => increaseChild(ride.id)}
+                                                    >+</button>
+                                                </div>
+                                            </div>
+
+                                            {/* VALIDATION */}
+                                            {totalPeople < min && (
+                                                <p className={styles.errorText}>
+                                                    Minimum {min} people required
+                                                </p>
+                                            )}
+
+                                            {/* TOTAL */}
+                                            {/* <div className={styles.totalRow}>
+                                                Rs. - {(
+                                                    (ride.adultPrice * adults) +
+                                                    (ride.childPrice * children)
+                                                ).toFixed(2)}
+                                            </div> */}
+
                                             <button
-                                                className={styles.qtyBtn}
-                                                onClick={() => decreaseAdult(ride.id)}
-                                                disabled={(adultQty[ride.id] || 1) === 1}
-
+                                                className={styles.addBtn}
+                                                onClick={() => handleAddToCart(ride)}
+                                                disabled={totalPeople < min}
                                             >
-                                                −
+                                                Add To Cart
                                             </button>
 
-                                            <span className={styles.qtyNumber}>
-                                                {adultQty[ride.id] || 1}
-                                            </span>
-
-                                            <button
-                                                className={styles.qtyBtn}
-                                                onClick={() => increaseAdult(ride.id)}
-                                            >
-                                                +
-                                            </button>
                                         </div>
-                                    </div>
-
-                                    {/* CHILD */}
-                                    <div className={styles.priceRow}>
-                                        <span className={styles.priceLabel}>Child (₹{ride.childPrice}) between 5 to 10 years</span>
-
-                                        <div className={styles.quantityBox}>
-                                            <button
-                                                className={styles.qtyBtn}
-                                                onClick={() => decreaseChild(ride.id)}
-                                                disabled={(childQty[ride.id] || 0) === 0}
-
-                                            >
-                                                −
-                                            </button>
-
-                                            <span className={styles.qtyNumber}>
-                                                {childQty[ride.id] || 0}
-                                            </span>
-
-                                            <button
-                                                className={styles.qtyBtn}
-                                                onClick={() => increaseChild(ride.id)}
-                                            >
-                                                +
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                    {/* TOTAL */}
-                                    <div className={styles.dynamicPrice} style={{ textAlign: "right" }}>
-                                        Rs. - {
-                                            (
-                                                (ride.adultPrice * (adultQty[ride.id] || 1)) +
-                                                (ride.childPrice * (childQty[ride.id] || 0))
-                                            ).toFixed(2)
-                                        }
-                                    </div>
-
-                                </div>
+                                    );
+                                })()
 
                             )}
 
-                            {/* BUTTON */}
-                            <button className={styles.addBtn}
-                                onClick={() => handleAddToCart(ride)}
-
-                            >
-                                Add To Cart
-                            </button>
 
                         </div>
                     </div>

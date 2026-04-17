@@ -142,11 +142,6 @@
   white-space:nowrap;
 }
 
-.priceLabel{
-  font-size:14px;
-  color:#1e5bd8;
-  font-weight:500;
-}
 
 /* DATE BOX */
 
@@ -258,11 +253,26 @@
 }
 
 
-.priceRow{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin:20px 0;
+.priceColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 10px;
+}
+
+/* ROW (label + control) */
+.priceRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* LABEL */
+.priceLabel {
+  font-size: 14px;
+  font-weight: 500;
+  flex: 1;
+  color: var(--primary-blue);
 }
 
 .dynamicPrice{

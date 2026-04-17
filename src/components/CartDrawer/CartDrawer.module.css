@@ -210,6 +210,7 @@
   color: var(--primary-blue);
 }
 
+
 .footer {
   display: flex;
   align-items: center;           /* vertically center text & button */

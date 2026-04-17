@@ -40,7 +40,7 @@ const rides = [
 const ridesImages = {
   0: ["/52_1.JPG", "/52_2.JPG", "/52_3.JPG", "/52_4.png"],
   1: ["/kidsPlay_1.JPG", "/kidsPlay_2.JPG", "/kidsPlay_3.JPG", "/kidsPlay_4.JPG"],
-  2: ["/multiRacer_1.JPG", "/multiRacer_2.JPG", "/multiRacer_3.JPG", "/multiRacer_4.JPG"],
+  2: ["/multiRacer_2.JPG", "/multiRacer_3.JPG", "/multiRacer_4.JPG"],
   3: ["/superLoop_1.JPG", "/superLoop_2.webp", "/superLoop_3.mp4", "/superLoop_4.mp4"],
   4: ["/wave_1.jpg", "/wave_2.JPG", "/wave_3.JPG", "/wave_4.JPG","/wave_5.JPG", "/wave_6.mp4", "/wave_7.mp4"],
   5: ["/family_2.JPG","/family_1.mp4"],

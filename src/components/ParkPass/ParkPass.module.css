@@ -142,6 +142,12 @@
   white-space:nowrap;
 }
 
+.priceLabel{
+  font-size:14px;
+  color:#1e5bd8;
+  font-weight:500;
+}
+
 /* DATE BOX */
 
 .dateBox{

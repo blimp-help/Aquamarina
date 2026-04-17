@@ -11,46 +11,53 @@ import Spinner from "../Spinners/Spinner";
 const rides = [
     {
         id: 1,
+        type: "single",
+        title: "Single Day Pass(Weekday)",
+        adultPrice: 500,
+        childPrice: 300,
+        image: "/passimage.jpg",
+        description: "Individual entry for adults & children."
+    },
+    {
+        id: 2,
+        type: "single",
+        title: "Single Day Pass(Weekend)",
+        adultPrice: 500,
+        childPrice: 300,
+        image: "/passimage.jpg",
+        description: "Individual entry for adults & children."
+    },
+    {
+        id: 3,
         title: "Group Offer (Weekday)",
+        type: "group",
         price: 450,
         image: "/passimage.jpg",
         description: "Min 10 people. Access to all rides."
     },
     {
-        id: 2,
+        id: 4,
         title: "Group Offer (Weekend)",
+        type: "group",
         price: 550,
         image: "/passimage.jpg",
         description: "Min 10 people. Access to all rides."
     },
     {
-        id: 3,
+        id: 5,
         title: "Family Pack",
         price: 650,
         image: "/passimage.jpg",
         description: "Min 10 people. Access to all rides."
     },
     {
-        id: 4,
-        title: "Water Slide Pass",
-        price: 350,
-        image: "/passimage.jpg",
-        description: "Min 10 people. Access to all rides."
-    },
-    {
-        id: 5,
-        title: "Water Slide Pass",
-        price: 350,
-        image: "/passimage.jpg",
-        description: "Min 10 people. Access to all rides."
-    },
-    {
         id: 6,
-        title: "Water Slide Pass",
-        price: 350,
+        title: "Family Pack",
+        price: 650,
         image: "/passimage.jpg",
         description: "Min 10 people. Access to all rides."
     }
+
 ];
 
 const ParkPass = () => {
@@ -58,7 +65,9 @@ const ParkPass = () => {
     const [dates, setDates] = useState({});
     const [quantities, setQuantities] = useState({});
     const dispatch = useDispatch();
-      const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(true);
+    const [adultQty, setAdultQty] = useState({});
+    const [childQty, setChildQty] = useState({});
 
 
 
@@ -112,15 +121,15 @@ const ParkPass = () => {
     };
 
     useEffect(() => {
-  setLoading(false);
-}, []);
+        setLoading(false);
+    }, []);
 
-     if (loading) {
-       return (
-         <div style={{ display: "flex", justifyContent: "center", padding: "40px" }}>
-           <Spinner type="ring" size={50} />
-         </div>
-       );
+    if (loading) {
+        return (
+            <div style={{ display: "flex", justifyContent: "center", padding: "40px" }}>
+                <Spinner type="ring" size={50} />
+            </div>
+        );
     }
 
     const handleAddToCart = (ride) => {
@@ -147,6 +156,39 @@ const ParkPass = () => {
         );
     };
 
+    const increaseAdult = (id) => {
+        setAdultQty({
+            ...adultQty,
+            [id]: (adultQty[id] || 1) + 1
+        });
+    };
+
+    const decreaseAdult = (id) => {
+        const current = adultQty[id] || 1;
+        if (current === 1) return;
+
+        setAdultQty({
+            ...adultQty,
+            [id]: current - 1
+        });
+    };
+
+    const increaseChild = (id) => {
+        setChildQty({
+            ...childQty,
+            [id]: (childQty[id] || 0) + 1
+        });
+    };
+
+    const decreaseChild = (id) => {
+        const current = childQty[id] || 0;
+        if (current === 0) return;
+
+        setChildQty({
+            ...childQty,
+            [id]: current - 1
+        });
+    };
     return (
         <section className={styles.section}>
 
@@ -166,7 +208,15 @@ const ParkPass = () => {
                             <img src={ride.image} alt={ride.title} />
 
                             <div className={styles.priceTag}>
-                                <div className={styles.price}>₹{ride.price}/-</div>
+                                <div className={styles.price}>
+                                    {ride.type === "group" ? (
+                                        <>₹{ride.price}/-</>
+                                    ) : (
+                                        <>
+                                            ₹{ride.adultPrice}/-
+                                        </>
+                                    )}
+                                </div>
                                 <div className={styles.gst}>Including GST</div>
                                 <div className={styles.person}>(For One Person)</div>
                             </div>
@@ -214,36 +264,115 @@ const ParkPass = () => {
                             </div>
 
                             {/* PRICE + QUANTITY */}
-                            <div className={styles.priceRow}>
+                            {ride.type === "group" ? (
 
-                                <span className={styles.dynamicPrice}>
-                                    Rs. - {(ride.price * (quantities[ride.id] || 10)).toFixed(2)}
-                                </span>
+                                // 🟢 GROUP UI (your existing code)
+                                <div className={styles.priceRow}>
 
-                                <div className={styles.quantityBox}>
-
-                                    <button
-                                        onClick={() => decreaseQty(ride.id)}
-                                        className={styles.qtyBtn}
-                                        disabled={(quantities[ride.id] || 10) === 10}
-                                    >
-                                        −
-                                    </button>
-
-                                    <span className={styles.qtyNumber}>
-                                        {quantities[ride.id] || 10}
+                                    <span className={styles.dynamicPrice}>
+                                        Rs. - {(ride.price * (quantities[ride.id] || 10)).toFixed(2)}
                                     </span>
 
-                                    <button
-                                        onClick={() => increaseQty(ride.id)}
-                                        className={styles.qtyBtn}
-                                    >
-                                        +
-                                    </button>
+                                    <div className={styles.quantityBox}>
+
+                                        <button
+                                            onClick={() => decreaseQty(ride.id)}
+                                            className={styles.qtyBtn}
+                                            disabled={(quantities[ride.id] || 10) === 10}
+                                        >
+                                            −
+                                        </button>
+
+                                        <span className={styles.qtyNumber}>
+                                            {quantities[ride.id] || 10}
+                                        </span>
+
+                                        <button
+                                            onClick={() => increaseQty(ride.id)}
+                                            className={styles.qtyBtn}
+                                        >
+                                            +
+                                        </button>
+
+                                    </div>
 
                                 </div>
 
-                            </div>
+                            ) : (
+
+                                // 🔵 SINGLE PACK UI
+                                <div
+                                    className={styles.priceRow}
+                                    style={{ flexDirection: "column", alignItems: "stretch", gap: "10px" }}
+                                >
+
+                                    {/* ADULT */}
+                                    <div className={styles.priceRow}>
+                                        <span className={styles.priceLabel}>Adult (₹{ride.adultPrice})</span>
+
+                                        <div className={styles.quantityBox}>
+                                            <button
+                                                className={styles.qtyBtn}
+                                                onClick={() => decreaseAdult(ride.id)}
+                                                disabled={(adultQty[ride.id] || 1) === 1}
+
+                                            >
+                                                −
+                                            </button>
+
+                                            <span className={styles.qtyNumber}>
+                                                {adultQty[ride.id] || 1}
+                                            </span>
+
+                                            <button
+                                                className={styles.qtyBtn}
+                                                onClick={() => increaseAdult(ride.id)}
+                                            >
+                                                +
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    {/* CHILD */}
+                                    <div className={styles.priceRow}>
+                                        <span className={styles.priceLabel}>Child (₹{ride.childPrice}) between 5 to 10 years</span>
+
+                                        <div className={styles.quantityBox}>
+                                            <button
+                                                className={styles.qtyBtn}
+                                                onClick={() => decreaseChild(ride.id)}
+                                                disabled={(childQty[ride.id] || 0) === 0}
+
+                                            >
+                                                −
+                                            </button>
+
+                                            <span className={styles.qtyNumber}>
+                                                {childQty[ride.id] || 0}
+                                            </span>
+
+                                            <button
+                                                className={styles.qtyBtn}
+                                                onClick={() => increaseChild(ride.id)}
+                                            >
+                                                +
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    {/* TOTAL */}
+                                    <div className={styles.dynamicPrice} style={{ textAlign: "right" }}>
+                                        Rs. - {
+                                            (
+                                                (ride.adultPrice * (adultQty[ride.id] || 1)) +
+                                                (ride.childPrice * (childQty[ride.id] || 0))
+                                            ).toFixed(2)
+                                        }
+                                    </div>
+
+                                </div>
+
+                            )}
 
                             {/* BUTTON */}
                             <button className={styles.addBtn}

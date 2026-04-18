@@ -1,8 +1,8 @@
 .drawer {
   position: fixed;
   top: 0;
-  right: -500px;
-  width: 450px;
+  right: -700px;
+  width: 550px;
   height: 100vh;
   background: white;
   box-shadow: -2px 0 10px rgba(0,0,0,0.1);
@@ -71,10 +71,11 @@
 
 .item {
   display: flex;
-  align-items: center;
+  align-items: top;
   gap: 15px;
   margin-bottom: 20px;
 }
+
 
 /* Image */
 .image {
@@ -189,7 +190,7 @@
 
 .parkAdultsChildren {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 12px;
   margin-top: 10px;
 }
@@ -200,6 +201,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 5px;
 }
 
 /* Label (Adult / Child) */
@@ -377,5 +379,12 @@
   .footer .checkout {
   padding: 10px 20px;
 }
+
+}
+
+@media (max-width: 320px) {
+  .parkAdultsChildren{
+    flex-direction: column;
+  }
 
 }

@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "@/store/cartSlice";
 import moment from "moment";
 import Spinner from "../Spinners/Spinner";
+import { toggleCart } from "@/store/uiSlice";
 
 
 const PicnicEvent = () => {
@@ -57,13 +58,13 @@ const PicnicEvent = () => {
     }, []);
 
 
-   if (loading) {
-  return (
-    <div style={{ display: "flex", justifyContent: "center", padding: "40px" }}>
-      <Spinner type="ring" size={50} />
-    </div>
-  );
-}
+    if (loading) {
+        return (
+            <div style={{ display: "flex", justifyContent: "center", padding: "40px" }}>
+                <Spinner type="ring" size={50} />
+            </div>
+        );
+    }
 
 
     const today = new Date().toISOString().split("T")[0];
@@ -88,56 +89,101 @@ const PicnicEvent = () => {
         });
     };
 
-    const handleAddToCart = async (ride) => {
-        const quantity = quantities[ride._id] || 10;
-        const date = dates[ride._id] || today;
-        try {
-            // ✅ check availability first
-            const res = await fetch(
-                "https://aquamarina-backend.onrender.com/picnicSpots/check-spot-avilability",
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        spotid: ride._id,
-                        date: date,
-                        spotQty: 1,
-                    }),
-                }
-            );
+    // const handleAddToCart = async (ride) => {
+    //     const quantity = quantities[ride._id] || 10;
+    //     const date = dates[ride._id] || today;
+    //     try {
+    //         // ✅ check availability first
+    //         const res = await fetch(
+    //             "https://aquamarina-backend.onrender.com/picnicSpots/check-spot-avilability",
+    //             {
+    //                 method: "POST",
+    //                 headers: {
+    //                     "Content-Type": "application/json",
+    //                 },
+    //                 body: JSON.stringify({
+    //                     spotid: ride._id,
+    //                     date: date,
+    //                     spotQty: 1,
+    //                 }),
+    //             }
+    //         );
 
-            const data = await res.json();
+    //         const data = await res.json();
 
-            if (!data.success) {
-                alert(data.message); // show error
-                return;
-            }
+    //         if (!data.success) {
+    //             alert(data.message); // show error
+    //             return;
+    //         }
 
-            dispatch(
-                addToCart({
-                    id: ride._id,
-                    type: "picnic",
-                    title: ride.title,
-                    price: ride.price,
-                    image: ride.featureImage.url,
-                    description: ride.description,
-                    spotQuantity: 1,
-                    spotPrice: ride.spotPrice,
-                    quantity,
-                    date: date,
-                    total: ride.price * quantity,
-                })
-            );
-        }
-        catch (err) {
-            console.error("Availability check failed", err);
-            alert("Unable to check room availability");
-        }
-    };
+    //         dispatch(
+    //             addToCart({
+    //                 id: ride._id,
+    //                 type: "picnic",
+    //                 title: ride.title,
+    //                 price: ride.price,
+    //                 image: ride.featureImage.url,
+    //                 description: ride.description,
+    //                 spotQuantity: 1,
+    //                 spotPrice: ride.spotPrice,
+    //                 quantity,
+    //                 date: date,
+    //                 total: ride.price * quantity,
+    //             })
+    //         );
+    //     }
+    //     catch (err) {
+    //         console.error("Availability check failed", err);
+    //         alert("Unable to check room availability");
+    //     }
+    // };
 
+const handleAddToCart = async (ride) => {
+  const date = dates[ride._id] || today;
 
+  try {
+    const res = await fetch(
+      "https://aquamarina-backend.onrender.com/picnicSpots/check-spot-avilability",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          spotid: ride._id,
+          date: date,
+          spotQty: 1,
+        }),
+      }
+    );
+
+    const data = await res.json();
+
+    if (!data.success) {
+      alert(data.message);
+      return;
+    }
+
+    dispatch(
+      addToCart({
+        id: ride._id,
+        type: "picnic",
+        title: ride.title,
+        image: ride.featureImage.url,
+        description: ride.shortDescription,
+
+        price: ride.spotPrice,
+        date,
+
+        total: ride.spotPrice, // ✅ no quantity
+      })
+    );
+    dispatch(toggleCart())
+  } catch (err) {
+    console.error("Availability check failed", err);
+    alert("Unable to check availability");
+  }
+};
     return (
         <section className={styles.section}>
 
@@ -156,7 +202,7 @@ const PicnicEvent = () => {
                             <img src={ride.featureImage.url} alt={ride.title} />
 
                             <div className={styles.priceTag}>
-                                <div className={styles.price}>₹{ride.price}/-</div>
+                                <div className={styles.price}>₹{ride.spotPrice}/-</div>
                                 <div className={styles.gst}>Including GST</div>
                                 <div className={styles.person}>(For One Person)</div>
                             </div>
@@ -205,10 +251,12 @@ const PicnicEvent = () => {
                             </div>
 
                             {/* PRICE + QUANTITY */}
-                            <div className={styles.priceRow}>
+                            {/* <div className={styles.priceRow}>
 
                                 <span className={styles.dynamicPrice}>
                                     Rs. - {(ride.spotPrice + ride.price * (quantities[ride._id] || 10)).toFixed(2)}
+                                    Rs. - {(ride.spotPrice)}
+
                                 </span>
 
                                 <div className={styles.quantityBox}>
@@ -234,7 +282,7 @@ const PicnicEvent = () => {
 
                                 </div>
 
-                            </div>
+                            </div> */}
 
                             {/* BUTTON */}
                             <button className={styles.addBtn}

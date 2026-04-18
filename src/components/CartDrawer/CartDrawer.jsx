@@ -18,6 +18,7 @@ const CartDrawer = () => {
 
     const router = useRouter();
 
+
     // Block scroll when drawer is open
     useEffect(() => {
         if (isOpen) {
@@ -179,8 +180,8 @@ const CartDrawer = () => {
                                                     <div className={styles.qtyBox}>
                                                         <button
                                                             onClick={() => dispatch(decreaseQuantity({ index, type: "child" }))}
-                                                              disabled={(item.children || 0) <= 0}
-                                                      >
+                                                            disabled={(item.children || 0) <= 0}
+                                                        >
                                                             <AiOutlineMinus size={16} />
                                                         </button>
 
@@ -196,22 +197,27 @@ const CartDrawer = () => {
 
                                             </div>
 
-                                        ) : (
+                                        ) 
+                                        : (
 
                                             /* 🎟️ EVENT / OTHERS */
-                                            <div className={styles.qtyBox}>
-                                                <button
-                                                    onClick={() => dispatch(decreaseQuantity({ index }))}
-                                                    disabled={item.quantity <= 1}
-                                                >
-                                                    <AiOutlineMinus size={18} />
-                                                </button>
+                                            // <div className={styles.qtyBox}>
+                                            //     <button
+                                            //         onClick={() => dispatch(decreaseQuantity({ index }))}
+                                            //         disabled={item.quantity <= 1}
+                                            //     >
+                                            //         <AiOutlineMinus size={18} />
+                                            //     </button>
 
-                                                <span>{item.quantity}</span>
+                                            //     <span>{item.quantity}</span>
 
-                                                <button onClick={() => dispatch(increaseQuantity({ index }))}>
-                                                    <AiOutlinePlus size={18} />
-                                                </button>
+                                            //     <button onClick={() => dispatch(increaseQuantity({ index }))}>
+                                            //         <AiOutlinePlus size={18} />
+                                            //     </button>
+                                            // </div>
+                                              <div className={styles.adultsChildren}>
+                                                <span>Spot Fees: ₹{item.price}</span>
+                                                {/* <span>Spots: {item.quantity}</span> */}
                                             </div>
                                         )}
 

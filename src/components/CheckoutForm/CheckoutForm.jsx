@@ -29,16 +29,31 @@ const CheckoutForm = () => {
     };
 
     const subtotal = cartItems.reduce((sum, item) => {
-        const spot = item.spotPrice || 0;
-        const quantity = item.quantity || 1;
 
-        // ✅ If hotel → include days
-        const itemTotal =
-            item.type === "hotel"
-                ? item.price * quantity * (item.days || 1)
-                : item.price * quantity;
+        let itemTotal = 0;
 
-        return sum + spot + itemTotal;
+        if (item.type === "hotel") {
+            const quantity = item.quantity || 1;
+            itemTotal = item.price * quantity * (item.days || 1);
+        }
+
+        else if (item.type === "park") {
+            const adults = item.adults || 0;
+            const children = item.children || 0;
+
+            itemTotal =
+                (item.price * adults) +
+                ((item.childPrice || 0) * children);
+        }
+
+        else {
+            // fallback (if any other type)
+            const quantity = item.quantity || 1;
+            itemTotal = item.price * quantity;
+        }
+
+        return sum + itemTotal;
+
     }, 0);
 
     // extract included tax (18%)
@@ -219,9 +234,19 @@ const CheckoutForm = () => {
                                     </span>
 
                                     <span className={styles.qty}>
-                                        {item.type === "hotel"
-                                            ? `Quantity: ${item.quantity || 1}`
-                                            : `Persons: ${item.quantity || 1}`}
+                                        {item.type === "hotel" && (
+                                            <>Rooms: {item.quantity}</>
+                                        )}
+
+                                        {item.type === "park" && (
+                                            <>
+                                                Adults: {item.adults} | Children: {item.children}
+                                            </>
+                                        )}
+
+                                        {item.type !== "hotel" && item.type !== "park" && (
+                                            <>Spots: {item.quantity}</>
+                                        )}
                                     </span>
                                 </div>
                             </div>

@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "@/store/cartSlice";
 import moment from "moment";
 import Spinner from "../Spinners/Spinner";
+import { toggleCart } from "@/store/uiSlice";
 
 const Hotels = () => {
   const [rooms, setRooms] = useState([]);
@@ -132,8 +133,11 @@ const Hotels = () => {
 
   const increaseAdult = (id) => {
     const current = guests[id]?.adults ?? 1;
+    const roomQty = quantities[id] || 1;
 
-    if (current >= 2) return;
+    const maxAdults = 2 * roomQty;
+
+    if (current >= maxAdults) return;
 
     setGuests({
       ...guests,
@@ -166,12 +170,16 @@ const Hotels = () => {
 
   const increaseChild = (id) => {
     const current = guests[id]?.children ?? 0;
-    if (current >= 1) return;
+    const roomQty = quantities[id] || 1;
+
+    const maxChildren = 1 * roomQty;
+
+    if (current >= maxChildren) return;
 
     setGuests({
       ...guests,
       [id]: {
-        adults: guests[id]?.adults ?? 2,
+        adults: guests[id]?.adults ?? 1,
         children: current + 1
       }
     });
@@ -179,12 +187,14 @@ const Hotels = () => {
 
   const decreaseChild = (id) => {
     const current = guests[id]?.children ?? 0;
+
+    // minimum = 0 children
     if (current <= 0) return;
 
     setGuests({
       ...guests,
       [id]: {
-        adults: guests[id]?.adults ?? 2,
+        adults: guests[id]?.adults ?? 1,
         children: current - 1
       }
     });
@@ -203,22 +213,35 @@ const Hotels = () => {
 
   const decreaseQty = (id) => {
     const current = quantities[id] || 1;
+    if (current <= 1) return;
 
-    if (current <= 1) return; // minimum 1 room
+    const newQty = current - 1;
+
+    const maxAdults = 2 * newQty;
+    const maxChildren = 1 * newQty;
 
     setQuantities({
       ...quantities,
-      [id]: current - 1
+      [id]: newQty
+    });
+
+    // Adjust guests automatically
+    setGuests({
+      ...guests,
+      [id]: {
+        adults: Math.min(guests[id]?.adults ?? 1, maxAdults),
+        children: Math.min(guests[id]?.children ?? 0, maxChildren)
+      }
     });
   };
 
-    if (loading) {
-   return (
-     <div style={{ display: "flex", justifyContent: "center", padding: "40px" }}>
-       <Spinner type="ring" size={50} />
-     </div>
-   );
- }
+  if (loading) {
+    return (
+      <div style={{ display: "flex", justifyContent: "center", padding: "40px" }}>
+        <Spinner type="ring" size={50} />
+      </div>
+    );
+  }
 
   const handleAddToCart = async (hotel) => {
     const quantity = quantities[hotel._id] || 1;
@@ -230,18 +253,18 @@ const Hotels = () => {
     const children = guests[hotel._id]?.children ?? 0;
 
     // ✅ Validate dates first
-  if (!checkIn || !checkOut) {
-    alert("Please select check-in and check-out dates");
-    return;
-  }
+    if (!checkIn || !checkOut) {
+      alert("Please select check-in and check-out dates");
+      return;
+    }
 
-  const checkInDate = new Date(checkIn);
-  const checkOutDate = new Date(checkOut);
+    const checkInDate = new Date(checkIn);
+    const checkOutDate = new Date(checkOut);
 
-  if (checkOutDate < checkInDate) {
-    alert("Check-out date must be after check-in date");
-    return;
-  }
+    if (checkOutDate < checkInDate) {
+      alert("Check-out date must be after check-in date");
+      return;
+    }
 
 
     const days = calculateDays(checkIn, checkOut);
@@ -290,6 +313,30 @@ const Hotels = () => {
           total: hotel.price * quantity * days,
         })
       );
+
+
+    // ✅ OPEN CART
+    dispatch(toggleCart());
+
+    // ✅ RESET VALUES
+    setQuantities((prev) => ({
+      ...prev,
+      [hotel._id]: 1
+    }));
+
+    setGuests((prev) => ({
+      ...prev,
+      [hotel._id]: {
+        adults: 1,
+        children: 0
+      }
+    }));
+
+    setDates((prev) => ({
+      ...prev,
+      [`in-${hotel._id}`]: moment().format("YYYY-MM-DD"),
+      [`out-${hotel._id}`]: moment().add(1, "day").format("YYYY-MM-DD")
+    }));
     }
     catch (err) {
       console.error("Availability check failed", err);
@@ -436,8 +483,7 @@ const Hotels = () => {
                     <button
                       onClick={() => increaseAdult(ride._id)}
                       className={styles.qtyBtn}
-                      disabled={adults === 2}
-                    >
+                      disabled={adults === 2 * (quantities[ride._id] || 1)}                    >
                       +
                     </button>
                   </div>
@@ -461,7 +507,7 @@ const Hotels = () => {
                     <button
                       onClick={() => increaseChild(ride._id)}
                       className={styles.qtyBtn}
-                      disabled={children === 1}
+                      disabled={children === 1 * (quantities[ride._id] || 1)} 
                     >
                       +
                     </button>

@@ -14,22 +14,22 @@ const rides = [
         id: 1,
         type: "park",
         subtype: "single",
-        title: "Single Day Pass(Weekday)",
+        title: "Single Day Pass",
         adultPrice: 500,
-        childPrice: 300,
+        childPrice: 400,
         image: "/passimage.jpg",
         description: "Individual entry for adults & children."
     },
-    {
-        id: 2,
-        type: "park",
-        subtype: "single",
-        title: "Single Day Pass(Weekend)",
-        adultPrice: 500,
-        childPrice: 300,
-        image: "/passimage.jpg",
-        description: "Individual entry for adults & children."
-    },
+    // {
+    //     id: 2,
+    //     type: "park",
+    //     subtype: "single",
+    //     title: "Single Day Pass(Weekend)",
+    //     adultPrice: 500,
+    //     childPrice: 300,
+    //     image: "/passimage.jpg",
+    //     description: "Individual entry for adults & children."
+    // },
     {
         id: 3,
         title: "Group Offer (Weekday)",
@@ -40,36 +40,36 @@ const rides = [
         image: "/passimage.jpg",
         description: "Min 10 people. Access to all rides."
     },
-    {
-        id: 4,
-        title: "Group Offer (Weekend)",
-        type: "park",
-        subtype: "group",
-        adultPrice: 450,
-        childPrice: 200,
-        image: "/passimage.jpg",
-        description: "Min 10 people. Access to all rides."
-    },
-    {
-        id: 5,
-        title: "Family Pack",
-        type: "park",
-        subtype: "family",
-        adultPrice: 500,
-        childPrice: 300,
-        image: "/passimage.jpg",
-        description: "Min 4 people. Access to all rides."
-    },
-    {
-        id: 6,
-        title: "Family Pack",
-        type: "park",
-        subtype: "family",
-        adultPrice: 500,
-        childPrice: 300,
-        image: "/passimage.jpg",
-        description: "Min 4 people. Access to all rides."
-    }
+    // {
+    //     id: 4,
+    //     title: "Group Offer (Weekend)",
+    //     type: "park",
+    //     subtype: "group",
+    //     adultPrice: 450,
+    //     childPrice: 200,
+    //     image: "/passimage.jpg",
+    //     description: "Min 10 people. Access to all rides."
+    // },
+    // {
+    //     id: 5,
+    //     title: "Family Pack",
+    //     type: "park",
+    //     subtype: "family",
+    //     adultPrice: 500,
+    //     childPrice: 300,
+    //     image: "/passimage.jpg",
+    //     description: "Min 4 people. Access to all rides."
+    // },
+    // {
+    //     id: 6,
+    //     title: "Family Pack",
+    //     type: "park",
+    //     subtype: "family",
+    //     adultPrice: 500,
+    //     childPrice: 300,
+    //     image: "/passimage.jpg",
+    //     description: "Min 4 people. Access to all rides."
+    // }
 
 ];
 
@@ -238,7 +238,7 @@ const ParkPass = () => {
     return (
         <section className={styles.section}>
 
-            <h2>Park Passes</h2>
+            <h2>Park Pass</h2>
             <p>
                 Explore thrilling water rides, exciting slides, and splash-filled
                 adventures designed for fun.

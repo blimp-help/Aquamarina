@@ -26,14 +26,14 @@
   overflow: hidden;
   box-shadow: 0 10px 25px rgba(0,0,0,0.1);
   width: 100%;
-  max-width: 380px;
+  max-width: 500px;
 }
 
 /* IMAGE */
 
 .imageWrapper {
   position: relative;
-  height: 210px;
+  height: 300px;
   overflow: hidden;
 }
 
@@ -41,71 +41,6 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
-
-/* GRADIENT */
-
-.imageWrapper::after{
-  content:"";
-  position:absolute;
-  bottom:0;
-  left:0;
-  width:100%;
-  height:60%;
-  background:linear-gradient(
-    to top,
-    var(--primary-blue),
-    rgba(0,0,0,0)
-  );
-}
-
-/* PRICE TAG (UNCHANGED) */
-
-.priceTag {
-  width: 130px;
-  height: 75px;
-  position: absolute;
-  bottom: 12px;
-  right: 0px;
-
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(6px);
-
-  padding: 10px 16px;
-
-  border-top-left-radius: 20px;
-  border-bottom-left-radius: 20px;
-
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
-
-  z-index: 2;
-}
-
-/* MAIN PRICE */
-
-.price {
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--primary-violet);
-  line-height: 1.1;
-}
-
-/* INCLUDING GST */
-
-.gst {
-  font-size: 12px;
-  color: #444;
-}
-
-/* PERSON */
-
-.person {
-  font-size: 12px;
-  color: #666;
 }
 
 /* CONTENT */
@@ -141,221 +76,15 @@
   margin: 0 0 18px 0;           /* bottom margin 18px */
 }
 
-/* Right column: price */
-.priceColumn {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 2px;
+.globalContact {
+  margin-top: 30px;
+  text-align: center;
+  font-size: 16px;
 }
 
-.spotLabel {
-  font-style: italic;
-  font-size: 14px;
+.globalContact a {
+  color: var(--primary-blue);
   font-weight: 600;
-  color: var(--primary-blue);
-}
-
-.spotPrice {
-  font-size: 14px;
-  color: #666;
-  margin: 0 0 18px 0;    
-}
-
-
-/* FIELD */
-
-.field{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  margin:18px 0;
-  gap:12px;
-}
-
-.field label{
-  font-size:14px;
-  color:#1e5bd8;
-  white-space:nowrap;
-}
-
-/* DATE BOX */
-
-.dateBox {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-
-  border: 2px solid #1e5bd8;
-  border-radius: 12px;
-  padding: 6px 12px;
-  min-width: 200px;
-
-  position: relative;
-  cursor: pointer;
-
-  /* allow the span & icon to not block the input */
-  pointer-events: none;  
-}
-
-/* But the icons and text inside need pointer-events for visual feedback */
-.dateBox > *:not(.hiddenDate) {
-  pointer-events: auto;
-}
-
-/* CALENDAR ICON */
-
-.calendarCircle{
-  width:30px;
-  height:30px;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  background:var(--primary-blue);
-  color:white;
-
-  border-radius:50%;
-}
-
-/* DATE TEXT */
-
-.dateText{
-  flex:1;
-  font-style:italic;
-  color:var(--primary-blue);
-}
-
-/* ARROW */
-
-.arrow{
-  cursor:pointer;
-  color:var(--primary-blue);
-}
-
-/* HIDDEN DATE INPUT */
-
-.hiddenDate {
-  position: absolute;
-  top: 5px;
-  left: -5px;
-  width: 100%;
-  height: 100%;
-  opacity: 0;          /* fully hidden */
-  cursor: pointer;
-  border: none;
-  background: transparent;
-  z-index: 2;          /* ensure it's on top */
-}
-
-/* TIME SLOT */
-
-.timeSelect{
-  border:2px solid #1e5bd8;
-  border-radius:10px;
-  padding:6px 10px;
-  font-size:14px;
-}
-
-/* QUANTITY */
-
-.quantity{
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-
-.quantity button{
-  width:28px;
-  height:28px;
-  border:none;
-  background:#eee;
-  border-radius:6px;
-  cursor:pointer;
-  font-weight:600;
-}
-
-.quantity span{
-  font-weight:500;
-}
-
-/* ADD BUTTON */
-
-.addBtn {
-  background: var(--primary-blue);
-  color: white;
-  border: 1px solid transparent;
-  padding: 10px 40px;
-  border-radius: 25px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-
-  display: block;
-  margin: 0 auto;
-}
-
-.addBtn:hover {
-  background: white;
-  color: var(--primary-blue);
-  border-color: var(--primary-blue);
-}
-
-
-.priceRow{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin:20px 0;
-}
-
-.dynamicPrice{
-color:var(--primary-blue);
-font-weight:500;
-font-size:16px;
-}
-
-/* Quantity pill */
-
-.quantityBox{
-display:flex;
-align-items:center;
-gap:18px;
-
-border:2px solid var(--primary-blue);
-border-radius:30px;
-
-padding:6px 14px;
-}
-
-/* Buttons */
-
-.qtyBtn{
-width:34px;
-height:34px;
-
-border:none;
-border-radius:50%;
-
-background:var(--primary-blue);
-color:white;
-
-font-size:20px;
-cursor:pointer;
-}
-
-/* Number */
-
-.qtyNumber{
-font-size:16px;
-font-weight:500;
-color:var(--primary-blue);
-}
-
-.qtyBtn:disabled {
-  background: #d6d6d6;
-  cursor: not-allowed;
-  color: white;
 }
 
 /* ===============================
@@ -507,6 +236,11 @@ color:var(--primary-blue);
 
 .spotLabel{
   font-size: 12px;
+}
+
+.globalContact {
+  font-size: 14px;
+  margin-bottom: 20px;
 }
 
 }

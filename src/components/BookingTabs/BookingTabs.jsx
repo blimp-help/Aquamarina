@@ -51,7 +51,7 @@ export default function BookingTabs() {
             onClick={() => changeTab("passes")}
           >
             <FaTicketAlt className={styles.icon} />
-            Park Passes
+            Park Pass
           </button>
 
           <button

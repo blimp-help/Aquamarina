@@ -132,7 +132,7 @@ const slides = [
 
 
 const Hero = () => {
-  const videoUrl = "/Hero.mp4";
+  const videoUrl = "/Hero.webm";
 
   return (
     <section className={styles.hero}>

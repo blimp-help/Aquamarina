@@ -65,7 +65,7 @@ const Navbar = () => {
             {/* Desktop Links */}
             <nav className={styles.navLinks}>
               <Link href="/booking?tab=passes">Explore Park</Link>
-              <Link href="/booking?tab=passes">Tickets & Passes</Link>
+              <Link href="/booking?tab=passes">Ticket & Pass</Link>
               <Link href="/booking?tab=hotels">Hotel & Packages</Link>
               <Link href="/#food">Food Court</Link>
             </nav>
@@ -143,7 +143,7 @@ const Navbar = () => {
                 <Link href="/booking?tab=passes" onClick={() => setMenuOpen(false)}>Explore Park</Link>
               </li>
               <li>
-                <Link href="/booking?tab=passes" onClick={() => setMenuOpen(false)}>Tickets & Passes</Link>
+                <Link href="/booking?tab=passes" onClick={() => setMenuOpen(false)}>Ticket & Pass</Link>
               </li>
             </ul>
 

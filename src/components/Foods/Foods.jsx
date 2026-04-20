@@ -17,7 +17,7 @@ const Foods = () => {
         "Grab your favorite quick bites and tasty snacks whenever hunger strikes. From crispy treats to refreshing drinks, it’s the perfect spot to enjoy fast, delicious food between all the fun and excitement.",
     },
     {
-      image: "/foods3.jpg",
+      image: "/foods4.JPG",
       title: "Sweet Treats for Every Craving",
       description:
         "Treat yourself to a variety of sweet delights, creamy ice creams, and irresistible desserts loved by kids and adults alike. It’s the perfect way to cool down and add a little extra sweetness to your day.",
@@ -29,7 +29,7 @@ const Foods = () => {
       <div className={styles.container}>
         {/* Heading */}
         <div className={styles.heading}>
-          <h2>Food & Dining</h2>
+          <h2>restaurant, snack bar & in room Dining</h2>
           <p>
            Refuel and refresh with a wide range of delicious food and beverages. From quick snacks to full meals, Aqua Marina offers something to satisfy every craving.
           </p>

@@ -14,11 +14,11 @@ import {
 } from "react-icons/hi2";
 
 const services = [
-  { icon: HiTicket, title: "Park Tickets", tab: "passes" },
-  { icon: HiUsers, title: "Group Tickets", tab: "passes" },
+  { icon: HiTicket, title: "Park Passes", tab: "passes" },
+  // { icon: HiUsers, title: "Group Tickets", tab: "passes" },
   { icon: HiBuildingOffice, title: "Hotel", tab: "hotels" },
   { icon: HiMap, title: "Event Spot", tab: "picnic" },
-  { icon: HiTag, title: "Deals & Specials", tab: "passes" },
+  // { icon: HiTag, title: "Deals & Specials", tab: "passes" },
   { icon: HiShoppingBag, title: "Foods", link: "#food" },
 ];
 

@@ -72,7 +72,7 @@ const GetInto = () => {
         {/* ✅ Always Video */}
         <video
           className={styles.media}
-          src="/video.mp4"
+          src="/Hero.mp4"
           autoPlay
           loop
           muted

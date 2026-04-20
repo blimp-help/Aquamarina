@@ -64,7 +64,7 @@ const Rooms = () => {
             <div className={styles.container}>
 
                 <div className={styles.heading}>
-                    <h2>Stay Cool. Stay Comfortable</h2>
+                    <h2>water park with the best greenery</h2>
                     <p>
                         Take a break from the excitement and relax in a cool, comfortable environment designed for families and groups. Whether you're recharging between rides or enjoying a peaceful moment, our spaces ensure you stay refreshed and relaxed throughout your visit.
                     </p>

@@ -7,17 +7,24 @@ const Booking = () => {
         <>
             {/* Hero */}
             <section className={styles.hero}>
-                <img src="/waterpark.jpg" className={styles.heroImg} />
-
+                <video
+                    className={styles.heroImg}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                >
+                    <source src="/Hero.webm" type="video/mp4" />
+                </video>
                 <div className={styles.overlay}></div>
 
-                <div className={styles.heroContent}>
+                {/* <div className={styles.heroContent}>
                     <h2>Ready for a Splash?</h2>
                     <p>
                         Book your day of adventure. From thrilling slides to lazy rivers,
                         we have the perfect experience for every water lover.
                     </p>
-                </div>
+                </div> */}
             </section>
             <BookingTabs />
         </>

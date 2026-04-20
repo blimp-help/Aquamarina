@@ -20,7 +20,7 @@ export default function Home() {
   <GetInto />
   <Rooms />
   <Foods />
-  <YoutubeVideos />
+  {/* <YoutubeVideos /> */}
   <CTABanner />
   <Footer />
   </>

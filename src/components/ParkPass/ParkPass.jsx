@@ -20,25 +20,15 @@ const rides = [
         image: "/passimage.jpg",
         description: "Individual entry for adults & children."
     },
-    // {
-    //     id: 2,
-    //     type: "park",
-    //     subtype: "single",
-    //     title: "Single Day Pass(Weekend)",
-    //     adultPrice: 500,
-    //     childPrice: 300,
-    //     image: "/passimage.jpg",
-    //     description: "Individual entry for adults & children."
-    // },
     {
-        id: 3,
-        title: "Group Offer (Weekday)",
+        id: 2,
+        title: "Single Day Outing",
         type: "park",
         subtype: "group",
         adultPrice: 450,
         childPrice: 200,
-        image: "/passimage.jpg",
-        description: "Min 10 people. Access to all rides."
+        image: "/singleOuting.JPG",
+        description: "Max 30 people allowed."
     },
     // {
     //     id: 4,
@@ -72,6 +62,7 @@ const rides = [
     // }
 
 ];
+const MAX_GROUP = 30;
 
 const ParkPass = () => {
 
@@ -149,7 +140,7 @@ const ParkPass = () => {
         const date = dates[ride.id];
 
         const adults = adultQty[ride.id] || (
-            ride.subtype === "group" ? 10 :
+            ride.subtype === "group" ? 1 :
                 ride.subtype === "family" ? 4 : 1
         );
 
@@ -158,7 +149,7 @@ const ParkPass = () => {
         const totalPeople = adults + children;
 
         const min =
-            ride.subtype === "group" ? 10 :
+            ride.subtype === "group" ? 1 :
                 ride.subtype === "family" ? 4 : 1;
 
         // ❌ Prevent invalid add
@@ -182,30 +173,35 @@ const ParkPass = () => {
         );
 
         // ✅ RESET VALUES
-    setAdultQty((prev) => ({
-        ...prev,
-        [ride.id]:
-            ride.subtype === "group"
-                ? 10
-                : ride.subtype === "family"
-                ? 4
-                : 1,
-    }));
+        setAdultQty((prev) => ({
+            ...prev,
+            [ride.id]:
+                ride.subtype === "group"
+                    ? 1
+                    : ride.subtype === "family"
+                        ? 4
+                        : 1,
+        }));
 
-    setChildQty((prev) => ({
-        ...prev,
-        [ride.id]: 0,
-    }));
+        setChildQty((prev) => ({
+            ...prev,
+            [ride.id]: 0,
+        }));
 
-    // ✅ OPEN CART
-    dispatch(toggleCart());
+        // ✅ OPEN CART
+        dispatch(toggleCart());
     };
 
 
-    const increaseAdult = (id) => {
+    const increaseAdult = (id, subtype) => {
+        const adults = adultQty[id] || 1;
+        const children = childQty[id] || 0;
+
+        if (subtype === "group" && adults + children >= MAX_GROUP) return;
+
         setAdultQty({
             ...adultQty,
-            [id]: (adultQty[id] || 1) + 1
+            [id]: adults + 1
         });
     };
 
@@ -219,10 +215,15 @@ const ParkPass = () => {
         });
     };
 
-    const increaseChild = (id) => {
+    const increaseChild = (id, subtype) => {
+        const adults = adultQty[id] || 1;
+        const children = childQty[id] || 0;
+
+        if (subtype === "group" && adults + children >= MAX_GROUP) return;
+
         setChildQty({
             ...childQty,
-            [id]: (childQty[id] || 0) + 1
+            [id]: children + 1
         });
     };
 
@@ -388,7 +389,7 @@ const ParkPass = () => {
 
                                 // 🟢 GROUP + FAMILY
                                 (() => {
-                                    const min = ride.subtype === "group" ? 10 : 4;
+                                    const min = ride.subtype === "group" ? 1 : 4;
 
                                     const adults = adultQty[ride.id] || min;
                                     const children = childQty[ride.id] || 0;
@@ -419,13 +420,13 @@ const ParkPass = () => {
 
                                                     <button
                                                         className={styles.qtyBtn}
-                                                        onClick={() =>
-                                                            setAdultQty({
-                                                                ...adultQty,
-                                                                [ride.id]: adults + 1
-                                                            })
+                                                        onClick={() => increaseAdult(ride.id, ride.subtype)}
+                                                        disabled={
+                                                            ride.subtype === "group" && totalPeople >= MAX_GROUP
                                                         }
-                                                    >+</button>
+                                                    >
+                                                        +
+                                                    </button>
                                                 </div>
                                             </div>
 
@@ -443,11 +444,15 @@ const ParkPass = () => {
                                                     >−</button>
 
                                                     <span className={styles.qtyNumber}>{children}</span>
-
                                                     <button
                                                         className={styles.qtyBtn}
-                                                        onClick={() => increaseChild(ride.id)}
-                                                    >+</button>
+                                                        onClick={() => increaseChild(ride.id, ride.subtype)}
+                                                        disabled={
+                                                            ride.subtype === "group" && totalPeople >= MAX_GROUP
+                                                        }
+                                                    >
+                                                        +
+                                                    </button>
                                                 </div>
                                             </div>
 

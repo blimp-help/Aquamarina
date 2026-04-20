@@ -8,6 +8,15 @@ import { addToCart } from "@/store/cartSlice";
 import moment from "moment";
 import Spinner from "../Spinners/Spinner";
 import { toggleCart } from "@/store/uiSlice";
+import { createPortal } from "react-dom";
+
+
+const hotelGallery = [
+  "/hotel1.JPG",
+  "/hotel2.JPG",
+  "/hotel3.JPG",
+  "/hotel4.JPG",
+];
 
 const Hotels = () => {
   const [rooms, setRooms] = useState([]);
@@ -16,6 +25,20 @@ const Hotels = () => {
   const [guests, setGuests] = useState({});
   const [quantities, setQuantities] = useState({});
   const [loading, setLoading] = useState(true);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [mounted, setMounted] = useState(false);
+
+useEffect(() => {
+  setMounted(true);
+}, []);
+
+useEffect(() => {
+  if (selectedImage) {
+    document.body.style.overflow = "hidden";
+  } else {
+    document.body.style.overflow = "auto";
+  }
+}, [selectedImage]);
 
 
   useEffect(() => {
@@ -350,6 +373,19 @@ const Hotels = () => {
       <h2>Hotels</h2>
       <p>Comfortable stays with beautiful views and relaxing surroundings.</p>
 
+
+      <div className={styles.gallery}>
+  {hotelGallery.map((img, index) => (
+    <img
+      key={index}
+      src={img}
+      className={styles.galleryImg}
+      onClick={() => setSelectedImage(img)}
+      alt="hotel"
+    />
+  ))}
+</div>
+
       <div className={styles.grid}>
 
         {rooms.map((ride) => {
@@ -525,6 +561,21 @@ const Hotels = () => {
           );
         })}
       </div>
+     {mounted && selectedImage &&
+  createPortal(
+    <div
+      className={styles.modal}
+      onClick={() => setSelectedImage(null)}
+    >
+      <img
+        src={selectedImage}
+        className={styles.modalImg}
+        onClick={(e) => e.stopPropagation()}
+      />
+    </div>,
+    document.body
+  )
+}
     </section>
   );
 };

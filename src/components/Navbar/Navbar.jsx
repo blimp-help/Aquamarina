@@ -68,6 +68,7 @@ const Navbar = () => {
               <Link href="/booking?tab=passes">Ticket & Pass</Link>
               <Link href="/booking?tab=hotels">Hotel & Packages</Link>
               <Link href="/#food">Food Court</Link>
+               {/* <Link href="/">About Us</Link> */}
             </nav>
 
             {/* Book Now or Cart */}

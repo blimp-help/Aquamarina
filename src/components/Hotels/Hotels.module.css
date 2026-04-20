@@ -309,6 +309,47 @@ color:var(--primary-blue);
   color: white;
 }
 
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  margin: 20px 0 30px;
+}
+
+.galleryImg {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.galleryImg:hover {
+  transform: scale(1.05);
+}
+
+/* MODAL */
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.9);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 99999;
+}
+
+.modalImg {
+  max-width: 95vw;
+  max-height: 95vh;
+  object-fit: contain;
+  border-radius: 12px;
+}
+
 /* ===============================
    TABLET
 ================================ */
@@ -456,6 +497,16 @@ color:var(--primary-blue);
   font-size:15px;
 }
 
+  .gallery{
+    grid-template-columns: repeat(4, 1fr); /* keep 4 */
+    gap: 8px; /* tighter spacing */
+  }
+
+  .galleryImg{
+    height: 80px; /* reduce height */
+    border-radius: 8px;
+  }
+
 }
 
 
@@ -510,5 +561,15 @@ color:var(--primary-blue);
 .addBtn{
   width:100%;
 }
+
+ .gallery{
+    grid-template-columns: repeat(4, 1fr); /* still 4 */
+    gap: 6px;
+  }
+
+  .galleryImg{
+    height: 65px; /* smaller */
+    border-radius: 6px;
+  }
 
 }

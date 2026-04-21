@@ -47,7 +47,7 @@ useEffect(() => {
         setLoading(true); // start loader
 
         const res = await fetch(
-          "https://aquamarina-backend.onrender.com/rooms/get-rooms"
+          "https://aquamarina-backend-ayfs.onrender.com/rooms/get-rooms"
         );
 
         const data = await res.json();
@@ -295,7 +295,7 @@ useEffect(() => {
     try {
       // ✅ check availability first
       const res = await fetch(
-        "https://aquamarina-backend.onrender.com/rooms/check-room-availability",
+        "https://aquamarina-backend-ayfs.onrender.com/rooms/check-room-availability",
         {
           method: "POST",
           headers: {

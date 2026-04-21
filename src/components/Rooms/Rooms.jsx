@@ -10,28 +10,28 @@ const stays = [
     {
         title: "Rustic Luxury Stay",
         tag: "Log Huts Premium",
-        image: "/room1.jpg",
+        image: "/resort11.JPG",
         description:
             "Enjoy a cozy wooden retreat designed for comfort and relaxation. With modern amenities and a peaceful atmosphere, it’s the perfect place to unwind after a fun-filled day at the water park.",
     },
     {
         title: "Stay with Amazing View",
         tag: "Pool Facing",
-        image: "/room2.jpg",
+        image: "/resort6.JPG",
         description:
             "Enjoy a relaxing stay with beautiful views of the pool right from your room. Perfect for guests who love a vibrant atmosphere while staying close to the fun and excitement of the water park.",
     },
     {
         title: "Rustic Luxury Stay",
         tag: "Garden Facing",
-        image: "/room3.jpg",
+        image: "/resort5.JPG",
         description:
             "Enjoy a cozy wooden retreat designed for comfort and relaxation. With modern amenities and a peaceful atmosphere, it’s the perfect place to unwind after a fun-filled day at the water park.",
     },
      {
         title: "Stay with Amazing View",
         tag: "Pool Facing",
-        image: "/room2.jpg",
+        image: "/resort10.JPG",
         description:
             "Enjoy a relaxing stay with beautiful views of the pool right from your room. Perfect for guests who love a vibrant atmosphere while staying close to the fun and excitement of the water park.",
     },
@@ -48,10 +48,10 @@ const Rooms = () => {
 
     // ✅ Separate images
     const roomImages = {
-        0: ["/room1.jpg", "/room2.jpg", "/room3.jpg"],
-        1: ["/room2.jpg", "/room1.jpg"],
-        2: ["/room3.jpg", "/room2.jpg"],
-        3: ["/room2.jpg", "/room3.jpg"],
+        0: ["/resort1.JPG", "/resort2.JPG", "/resort3.JPG"],
+        1: ["/resort6.JPG", "/resort7.JPG"],
+        2: ["/resort4.JPG", "/resort5.JPG"],
+        3: ["/resort9.JPG", "/resort10.JPG"],
     };
 
     const handleClick = () => {
@@ -86,7 +86,7 @@ const Rooms = () => {
                             <div className={styles.features}>
                                 <div className={styles.featureItem}><FaSnowflake /> Air Conditioning</div>
                                 <div className={styles.featureItem}><FaBed /> King Size Bed</div>
-                                <div className={styles.featureItem}><FaWifi /> Free Wi-Fi</div>
+                                {/* <div className={styles.featureItem}><FaWifi /> Free Wi-Fi</div> */}
                                 <div className={styles.featureItem}><FaTv /> LED TV</div>
                                 <div className={styles.featureItem}><FaBath /> Bathroom with Hot & Cold Water</div>
                                 <div className={styles.featureItem}><FaUserCircle /> Wardrobe & Dressing Area</div>

@@ -95,7 +95,7 @@ const CheckoutForm = () => {
         }
 
         // 🔥 Step 1: Create order from backend
-        const orderRes = await fetch("https://aquamarina-backend.onrender.com/create-order", {
+        const orderRes = await fetch("https://aquamarina-backend-ayfs.onrender.com/create-order", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -122,7 +122,7 @@ const CheckoutForm = () => {
 
             handler: async function (response) {
 
-                const verifyRes = await fetch("https://aquamarina-backend.onrender.com/verify-payment", {
+                const verifyRes = await fetch("https://aquamarina-backend-ayfs.onrender.com/verify-payment", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -254,10 +254,10 @@ const CheckoutForm = () => {
                     </div>
 
                     {/* Coupon */}
-                    <div className={styles.coupon}>
+                    {/* <div className={styles.coupon}>
                         <input placeholder="Apply Coupon" />
                         <button>Apply</button>
-                    </div>
+                    </div> */}
 
                     {/* Pricing */}
                     <div className={styles.pricing}>

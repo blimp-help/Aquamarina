@@ -16,22 +16,22 @@ const stays = [
     },
     {
         title: "Stay with Amazing View",
-        tag: "Pool Facing",
-        image: "/resort6.JPG",
+        tag: "Mud Hut Premium",
+        image: "/resort13.JPG",
         description:
             "Enjoy a relaxing stay with beautiful views of the pool right from your room. Perfect for guests who love a vibrant atmosphere while staying close to the fun and excitement of the water park.",
     },
     {
         title: "Rustic Luxury Stay",
-        tag: "Garden Facing",
+        tag: "Deluxe room",
         image: "/resort5.JPG",
         description:
             "Enjoy a cozy wooden retreat designed for comfort and relaxation. With modern amenities and a peaceful atmosphere, it’s the perfect place to unwind after a fun-filled day at the water park.",
     },
      {
         title: "Stay with Amazing View",
-        tag: "Pool Facing",
-        image: "/resort10.JPG",
+        tag: "Twin Bed Sharing Room",
+        image: "/resort2.JPG",
         description:
             "Enjoy a relaxing stay with beautiful views of the pool right from your room. Perfect for guests who love a vibrant atmosphere while staying close to the fun and excitement of the water park.",
     },
@@ -48,10 +48,10 @@ const Rooms = () => {
 
     // ✅ Separate images
     const roomImages = {
-        0: ["/resort1.JPG", "/resort2.JPG", "/resort3.JPG"],
-        1: ["/resort6.JPG", "/resort7.JPG"],
-        2: ["/resort4.JPG", "/resort5.JPG"],
-        3: ["/resort9.JPG", "/resort10.JPG"],
+        0: ["/resort1.JPG", "/resort8.JPG", "/resort9.JPG", "resort12.JPG"],
+        1: ["/resort13.JPG", "/resort14.JPG"],
+        2: ["/resort5.JPG", "/resort4.JPG", "/resort6.JPG", "/resort7.JPG"],
+        3: ["/resort2.JPG", "/resort3.JPG", "/resort1.JPG" ],
     };
 
     const handleClick = () => {

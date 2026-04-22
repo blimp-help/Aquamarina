@@ -12,12 +12,12 @@ const Footer = () => {
             </div>
 
             {/* Navigation Links */}
-            <nav className={styles.navLinks}>
+            {/* <nav className={styles.navLinks}>
                 <Link href="/booking?tab=passes">Explore Park</Link>
                 <Link href="/booking?tab=passes">Tickets & Passes</Link>
                 <Link href="/booking?tab=hotels">Hotel & Packages</Link>
                 <Link href="/#food">Food Court</Link>
-            </nav>
+            </nav> */}
 
             {/* Info Columns */}
             <div className={styles.footerInfoGrid}>

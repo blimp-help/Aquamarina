@@ -9,13 +9,16 @@ import moment from "moment";
 import Spinner from "../Spinners/Spinner";
 import { toggleCart } from "@/store/uiSlice";
 import { createPortal } from "react-dom";
+import HotelsModal from "./HotelsModal";
 
 
 const hotelGallery = [
+  "/hotel5.JPG",
   "/hotel1.JPG",
   "/hotel2.JPG",
   "/hotel3.JPG",
   "/hotel4.JPG",
+  "/hotel6.JPG",
 ];
 
 const Hotels = () => {
@@ -27,18 +30,20 @@ const Hotels = () => {
   const [loading, setLoading] = useState(true);
   const [selectedImage, setSelectedImage] = useState(null);
   const [mounted, setMounted] = useState(false);
+  const [selectedRoom, setSelectedRoom] = useState(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-useEffect(() => {
-  setMounted(true);
-}, []);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
-useEffect(() => {
-  if (selectedImage) {
-    document.body.style.overflow = "hidden";
-  } else {
-    document.body.style.overflow = "auto";
-  }
-}, [selectedImage]);
+  useEffect(() => {
+    if (selectedImage) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [selectedImage]);
 
 
   useEffect(() => {
@@ -338,28 +343,28 @@ useEffect(() => {
       );
 
 
-    // ✅ OPEN CART
-    dispatch(toggleCart());
+      // ✅ OPEN CART
+      dispatch(toggleCart());
 
-    // ✅ RESET VALUES
-    setQuantities((prev) => ({
-      ...prev,
-      [hotel._id]: 1
-    }));
+      // ✅ RESET VALUES
+      setQuantities((prev) => ({
+        ...prev,
+        [hotel._id]: 1
+      }));
 
-    setGuests((prev) => ({
-      ...prev,
-      [hotel._id]: {
-        adults: 1,
-        children: 0
-      }
-    }));
+      setGuests((prev) => ({
+        ...prev,
+        [hotel._id]: {
+          adults: 1,
+          children: 0
+        }
+      }));
 
-    setDates((prev) => ({
-      ...prev,
-      [`in-${hotel._id}`]: moment().format("YYYY-MM-DD"),
-      [`out-${hotel._id}`]: moment().add(1, "day").format("YYYY-MM-DD")
-    }));
+      setDates((prev) => ({
+        ...prev,
+        [`in-${hotel._id}`]: moment().format("YYYY-MM-DD"),
+        [`out-${hotel._id}`]: moment().add(1, "day").format("YYYY-MM-DD")
+      }));
     }
     catch (err) {
       console.error("Availability check failed", err);
@@ -375,16 +380,16 @@ useEffect(() => {
 
 
       <div className={styles.gallery}>
-  {hotelGallery.map((img, index) => (
-    <img
-      key={index}
-      src={img}
-      className={styles.galleryImg}
-      onClick={() => setSelectedImage(img)}
-      alt="hotel"
-    />
-  ))}
-</div>
+        {hotelGallery.map((img, index) => (
+          <img
+            key={index}
+            src={img}
+            className={styles.galleryImg}
+            onClick={() => setSelectedImage(img)}
+            alt="hotel"
+          />
+        ))}
+      </div>
 
       <div className={styles.grid}>
 
@@ -543,12 +548,26 @@ useEffect(() => {
                     <button
                       onClick={() => increaseChild(ride._id)}
                       className={styles.qtyBtn}
-                      disabled={children === 1 * (quantities[ride._id] || 1)} 
+                      disabled={children === 1 * (quantities[ride._id] || 1)}
                     >
                       +
                     </button>
                   </div>
                 </div>
+
+             <span
+  className={styles.seeMore}
+  onClick={() => {
+    const gallery = [
+      ...(ride.galleryImages?.map(img => img.url) || [])
+    ];
+
+    setSelectedRoom(gallery); 
+    setCurrentIndex(0);
+  }}
+>
+  See More Details
+</span>
 
                 <button className={styles.addBtn}
                   onClick={() => handleAddToCart(ride)}
@@ -561,21 +580,35 @@ useEffect(() => {
           );
         })}
       </div>
-     {mounted && selectedImage &&
+
+      {mounted && selectedImage &&
+        createPortal(
+          <div
+            className={styles.modal}
+            onClick={() => setSelectedImage(null)}
+          >
+            <img
+              src={selectedImage}
+              className={styles.modalImg}
+              onClick={(e) => e.stopPropagation()}
+            />
+          </div>,
+          document.body
+        )
+      }
+
+      {mounted && selectedRoom &&
   createPortal(
-    <div
-      className={styles.modal}
-      onClick={() => setSelectedImage(null)}
-    >
-      <img
-        src={selectedImage}
-        className={styles.modalImg}
-        onClick={(e) => e.stopPropagation()}
-      />
-    </div>,
+    <HotelsModal
+      images={selectedRoom}
+      currentIndex={currentIndex}
+      setCurrentIndex={setCurrentIndex}
+      onClose={() => setSelectedRoom(null)}
+    />,
     document.body
   )
 }
+
     </section>
   );
 };

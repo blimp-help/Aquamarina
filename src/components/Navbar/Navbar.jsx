@@ -64,10 +64,10 @@ const Navbar = () => {
 
             {/* Desktop Links */}
             <nav className={styles.navLinks}>
-              <Link href="/booking?tab=passes">Explore Park</Link>
+              {/* <Link href="/booking?tab=passes">Explore Park</Link>
               <Link href="/booking?tab=passes">Ticket & Pass</Link>
               <Link href="/booking?tab=hotels">Hotel & Packages</Link>
-              <Link href="/#food">Food Court</Link>
+              <Link href="/#food">Food Court</Link> */}
                {/* <Link href="/">About Us</Link> */}
             </nav>
 
@@ -138,7 +138,7 @@ const Navbar = () => {
          {/* Blur Overlay */}
         {menuOpen && (
           <div className={styles.mobileMenu}>
-            <ul className={styles.mobileNavSection}>
+            {/* <ul className={styles.mobileNavSection}>
               <li className={styles.sectionHeading}>Explore</li>
               <li>
                 <Link href="/booking?tab=passes" onClick={() => setMenuOpen(false)}>Explore Park</Link>
@@ -160,7 +160,7 @@ const Navbar = () => {
               <li>
                 <Link href="/#food" onClick={() => setMenuOpen(false)}>Food Court</Link>
               </li>
-            </ul>
+            </ul> */}
           </div>
         )}
       </div>

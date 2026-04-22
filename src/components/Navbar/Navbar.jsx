@@ -99,12 +99,12 @@ const Navbar = () => {
         <div className="container">
           <div className={styles.navbarContent}>
             {/* Hamburger */}
-            <div
+            {/* <div
               className={styles.menuIcon}
               onClick={() => setMenuOpen(!menuOpen)}
             >
               {menuOpen ? <FaTimes /> : <FaBars />}
-            </div>
+            </div> */}
 
             {/* Logo */}
             <div className={styles.logo}>
@@ -129,7 +129,7 @@ const Navbar = () => {
               </button>
             ) : (
               <Link href="/booking">
-                {/* <button className={styles.mobileBookBtn}>Book Now</button> */}
+                <button className={styles.mobileBookBtn}>Book Now</button>
               </Link>
             )}
           </div>

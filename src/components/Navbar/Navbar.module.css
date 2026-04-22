@@ -97,7 +97,7 @@
 .mobileBookBtn {
   background-color: var(--primary-white);
   color: var(--primary-blue);
-  padding: 6px 14px;   /* reduced */
+  padding: 12px 14px;   /* reduced */
   border: none;
   border-radius: 100px;
   font-weight: 600;

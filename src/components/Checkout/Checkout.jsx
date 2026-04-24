@@ -7,7 +7,7 @@ const Checkout = () => {
     <>
            {/* Hero */}
             <section className={styles.hero}>
-                <img src="/waterpark.jpg" className={styles.heroImg} />
+                <img src="https://res.cloudinary.com/dkzkxte95/image/upload/v1777015058/waterpark_v7zqhk.webp" className={styles.heroImg} />
 
                 <div className={styles.overlay}></div>
 

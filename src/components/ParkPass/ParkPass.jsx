@@ -17,7 +17,7 @@ const rides = [
         title: "Single Day Pass",
         adultPrice: 500,
         childPrice: 400,
-        image: "/passimage.jpg",
+        image: "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015033/passimage_iexuzy.webp",
         description: "Individual entry for adults & children."
     },
     {
@@ -27,7 +27,7 @@ const rides = [
         subtype: "group",
         adultPrice: 450,
         childPrice: 200,
-        image: "/singleOuting.JPG",
+        image: "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015035/picnic_2_rzrzc6.webp",
         description: "Max 30 people allowed."
     },
     // {

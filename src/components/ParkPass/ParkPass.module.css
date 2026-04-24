@@ -46,7 +46,7 @@
 
 /* GRADIENT */
 
-.imageWrapper::after{
+/* .imageWrapper::after{
   content:"";
   position:absolute;
   bottom:0;
@@ -58,7 +58,7 @@
     var(--primary-blue),
     rgba(0,0,0,0)
   );
-}
+} */
 
 /* PRICE TAG (UNCHANGED) */
 

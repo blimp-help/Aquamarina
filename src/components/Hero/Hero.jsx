@@ -132,7 +132,7 @@ const slides = [
 
 
 const Hero = () => {
-  const videoUrl = "/Hero.webm";
+  const videoUrl = "https://res.cloudinary.com/dkzkxte95/video/upload/v1777014800/WhatsApp_Video_2026-04-24_at_12.20.09_h48sma.mp4";
 
   return (
     <section className={styles.hero}>

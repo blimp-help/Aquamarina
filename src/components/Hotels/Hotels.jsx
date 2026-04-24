@@ -13,12 +13,12 @@ import HotelsModal from "./HotelsModal";
 
 
 const hotelGallery = [
-  "/hotel5.JPG",
-  "/hotel1.JPG",
-  "/hotel2.JPG",
-  "/hotel3.JPG",
-  "/hotel4.JPG",
-  "/hotel6.JPG",
+  "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015024/hotel5_zzeuve.webp",
+  "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015021/hotel1_etvxry.webp",
+  "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015021/hotel2_aujg59.webp",
+  "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015022/hotel3_d3tbig.webp",
+  "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015034/picnic_1_ocbqff.webp",
+  "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015025/hotel6_zdwivt.webp",
 ];
 
 const Hotels = () => {

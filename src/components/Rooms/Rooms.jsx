@@ -10,28 +10,28 @@ const stays = [
     {
         title: "Rustic Luxury Stay",
         tag: "Log Huts Premium",
-        image: "/resort11.JPG",
+        image: "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015050/room1_hinkg6.webp",
         description:
             "Enjoy a cozy wooden retreat designed for comfort and relaxation. With modern amenities and a peaceful atmosphere, it’s the perfect place to unwind after a fun-filled day at the water park.",
     },
     {
         title: "Stay with Amazing View",
         tag: "Mud Hut Premium",
-        image: "/resort13.JPG",
+        image: "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015049/resort13_ba9z9w.webp",
         description:
             "Enjoy a relaxing stay with beautiful views of the pool right from your room. Perfect for guests who love a vibrant atmosphere while staying close to the fun and excitement of the water park.",
     },
     {
         title: "Rustic Luxury Stay",
         tag: "Deluxe room",
-        image: "/resort5.JPG",
+        image: "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015042/resort5_wbfndu.webp",
         description:
             "Enjoy a cozy wooden retreat designed for comfort and relaxation. With modern amenities and a peaceful atmosphere, it’s the perfect place to unwind after a fun-filled day at the water park.",
     },
      {
         title: "Stay with Amazing View",
         tag: "Twin Bed Sharing Room",
-        image: "/resort2.JPG",
+        image: "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015040/resort2_yetg9d.webp",
         description:
             "Enjoy a relaxing stay with beautiful views of the pool right from your room. Perfect for guests who love a vibrant atmosphere while staying close to the fun and excitement of the water park.",
     },
@@ -48,10 +48,10 @@ const Rooms = () => {
 
     // ✅ Separate images
     const roomImages = {
-        0: ["/resort1.JPG", "/resort8.JPG", "/resort9.JPG", "resort12.JPG"],
-        1: ["/resort13.JPG", "/resort14.JPG"],
-        2: ["/resort5.JPG", "/resort4.JPG", "/resort6.JPG", "/resort7.JPG"],
-        3: ["/resort2.JPG", "/resort3.JPG", "/resort1.JPG" ],
+        0: ["https://res.cloudinary.com/dkzkxte95/image/upload/v1777015040/resort1_jsieth.webp", "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015044/resort8_bcdvq1.webp", "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015048/resort9_w7wvye.webp", "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015048/resort12_tizyxy.webp"],
+        1: ["https://res.cloudinary.com/dkzkxte95/image/upload/v1777015049/resort13_ba9z9w.webp", "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015049/resort14_itxkmc.webp"],
+        2: ["https://res.cloudinary.com/dkzkxte95/image/upload/v1777015042/resort5_wbfndu.webp", "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015041/resort4_l70y9c.webp", "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015043/resort6_p80bi1.webp", "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015045/resort7_bw6kcs.webp"],
+        3: ["https://res.cloudinary.com/dkzkxte95/image/upload/v1777015040/resort2_yetg9d.webp", "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015040/resort3_hcdod9.webp" ],
     };
 
     const handleClick = () => {

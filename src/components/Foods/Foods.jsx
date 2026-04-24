@@ -5,19 +5,19 @@ import styles from "./Foods.module.css";
 const Foods = () => {
   const features = [
     {
-      image: "/foods1.jpg",
+      image: "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015016/foods1_cfdya5.webp",
       title: "Comfortable Dining for Everyone",
       description:
         "Enjoy delicious meals in a cool and comfortable air-conditioned space designed for families and groups. Relax, recharge, and savor a variety of tasty dishes after an exciting day at the water park. ",
     },
     {
-      image: "/foods2.jpg",
+      image: "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015016/foods2_jwpxsr.webp",
       title: "Quick Bites, Big Flavor",
       description:
         "Grab your favorite quick bites and tasty snacks whenever hunger strikes. From crispy treats to refreshing drinks, it’s the perfect spot to enjoy fast, delicious food between all the fun and excitement.",
     },
     {
-      image: "/foods4.JPG",
+      image: "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015018/foods4_hjuqax.webp",
       title: "Sweet Treats for Every Craving",
       description:
         "Treat yourself to a variety of sweet delights, creamy ice creams, and irresistible desserts loved by kids and adults alike. It’s the perfect way to cool down and add a little extra sweetness to your day.",

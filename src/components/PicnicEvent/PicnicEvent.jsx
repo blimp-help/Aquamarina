@@ -8,19 +8,19 @@ const events = [
     id: 1,
     title: "Weddings",
     shortDescription: "Celebrate your big day in a beautiful open-air venue with premium arrangements.",
-    image: "/wedding1.jpeg",
+    image: "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015061/wedding1_mv2wug.webp",
   },
   {
     id: 2,
     title: "Birthday Parties",
     shortDescription: "Make birthdays extra special with fun rides, food, and entertainment.",
-    image: "/birthday.jpeg",
+    image: "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015013/birthday_zregul.webp",
   },
   {
     id: 3,
     title: "Live Concerts",
     shortDescription: "Host energetic concerts with large crowd capacity and stage setup.",
-    image: "/wedding.jpeg",
+    image: "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015060/wedding_a1qqvg.webp",
   },
 ];
 

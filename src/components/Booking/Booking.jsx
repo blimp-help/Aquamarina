@@ -14,7 +14,7 @@ const Booking = () => {
                     muted
                     playsInline
                 >
-                    <source src="/Hero.webm" type="video/mp4" />
+                    <source src="https://res.cloudinary.com/dkzkxte95/video/upload/v1777014800/WhatsApp_Video_2026-04-24_at_12.20.09_h48sma.mp4" type="video/mp4" />
                 </video>
                 <div className={styles.overlay}></div>
 

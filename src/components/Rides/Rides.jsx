@@ -5,32 +5,32 @@ import RidesModal from "./RidesModal";
 
 const rides = [
   {
-    image: "/52_1.JPG",
+    image: "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015012/52_1_zku7ch.webp",
     title: "52 inch water slide",
     desc: "This 52 inch double float water slides is a signature attraction, it’s creates an illusion during high speed, feels like a time travel. ",
   },
   {
-    image: "/kidsPlay_1.JPG",
+    image: "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015027/kidsPlay_1_aeaalp.webp",
     title: "Kids’ Play Station",
     desc: "A dedicated zone for children with colorful slides, shallow pools, and fun water features to keep them entertained all day.",
   },
   {
-    image: "/multiRacer_1.JPG",
+    image: "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015030/multiRacer_1_ivzwzc.webp",
     title: "Multi racer strip",
     desc: "The heat is on and you can challenge your friend for a good hearty race down the hill. Three friends one soul. Racing board available.",
   },
   {
-    image: "/superLoop_1.JPG",
+    image: "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015054/superLoop_1_cw8ktk.webp",
     title: "Super loop",
     desc: "One for the most thrilling rides you will find in Aqua Marina. This ride has a launcher where the trap door flicks open and you will go down the rabbit hole.",
   },
   {
-    image: "/wave_1.jpg",
+    image: "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015056/wave_1_wzwily.webp",
     title: "Wave Pool",
     desc: "Experience the ocean-like waves right in the heart of Aqua Marina—relax or ride the waves your way with state of the art technology to give you a slice of the BAY of BENGAL.",
   },
   {
-    image: "/family_2.JPG",
+    image: "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015016/family_2_zllzrd.webp",
     title: "Family Slides",
     desc: "Enjoy safe and exciting mini slides designed for families and kids, mini slides, and interactive water play.",
   },
@@ -38,12 +38,12 @@ const rides = [
 
 // ✅ Separate images
 const ridesImages = {
-  0: ["/52_1.JPG", "/52_2.JPG", "/52_3.JPG", "/52_4.png"],
-  1: ["/kidsPlay_1.JPG", "/kidsPlay_2.JPG", "/kidsPlay_3.JPG", "/kidsPlay_4.JPG"],
-  2: ["/multiRacer_2.JPG", "/multiRacer_3.JPG", "/multiRacer_4.JPG"],
-  3: ["/superLoop_3.mp4", "/superLoop_4.mp4"],
-  4: ["/wave_1.jpg", "/wave_2.JPG", "/wave_3.JPG", "/wave_4.JPG","/wave_5.JPG", "/wave_6.mp4", "/wave_7.mp4"],
-  5: ["/family_2.JPG","/family_1.mp4", "/video.mp4"],
+  0: ["https://res.cloudinary.com/dkzkxte95/image/upload/v1777015012/52_1_zku7ch.webp", "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015012/52_2_c9gxgx.webp", "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015012/52_3_azr8bk.webp", "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015013/52_4_ed3gdl.webp"],
+  1: ["https://res.cloudinary.com/dkzkxte95/image/upload/v1777015027/kidsPlay_1_aeaalp.webp", "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015026/kidsPlay_2_vmtb5q.webp", "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015029/kidsPlay_3_xycazx.webp", "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015028/kidsPlay_4_afflz9.webp"],
+  2: ["https://res.cloudinary.com/dkzkxte95/image/upload/v1777015031/multiRacer_2_lvvuhy.webp", "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015032/multiRacer_3_swrsni.webp", "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015033/multiRacer_4_mxvigz.webp"],
+  3: ["https://res.cloudinary.com/dkzkxte95/video/upload/v1777016254/superLoop_3_h48qpy.mp4", "https://res.cloudinary.com/dkzkxte95/video/upload/v1777016284/superLoop_4_fnpnm4.mp4"],
+  4: ["https://res.cloudinary.com/dkzkxte95/image/upload/v1777015056/wave_1_wzwily.webp", "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015058/wave_2_yrxvzd.webp", "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015058/wave_3_dmtbbi.webp", "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015059/wave_4_pniqo5.webp","https://res.cloudinary.com/dkzkxte95/image/upload/v1777015059/wave_5_wrq5vz.webp", "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015059/wave_5_wrq5vz.webp", "https://res.cloudinary.com/dkzkxte95/video/upload/v1777016436/wave_7_us7d4e.mp4"],
+  5: ["https://res.cloudinary.com/dkzkxte95/image/upload/v1777015016/family_2_zllzrd.webp","https://res.cloudinary.com/dkzkxte95/video/upload/v1777016585/family_1_m2ilcn.mp4", "https://res.cloudinary.com/dkzkxte95/video/upload/v1777016969/video-1_mjsjla.mp4"],
 };
 
 const Rides = () => {

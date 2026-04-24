@@ -22,7 +22,7 @@ const GetInto = () => {
           </p>
         </div>
       </div>
-{/* 
+      {/* 
       <div className={styles.videoHero} onClick={stopVideo}>
         {!play && (
           <img
@@ -68,17 +68,16 @@ const GetInto = () => {
         </div>
       </div> */}
 
-       <div className={styles.videoHero}>
-        {/* ✅ Always Video */}
+      <div className={styles.videoHero}>
         <video
           className={styles.media}
-          src="/Hero.mp4"
+          src="https://res.cloudinary.com/dkzkxte95/video/upload/v1777011735/Hero_hdjs7p.mp4"
           autoPlay
           loop
           muted
           playsInline
         />
-        </div>
+      </div>
     </section>
   );
 };

@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import styles from "./PicnicEvent.module.css";
 import Spinner from "../Spinners/Spinner";
+import EventModal from "./EventModal";
 
 const events = [
   {
@@ -9,18 +10,33 @@ const events = [
     title: "Weddings",
     shortDescription: "Celebrate your big day in a beautiful open-air venue with premium arrangements.",
     image: "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015061/wedding1_mv2wug.webp",
+    gallery: [
+      "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015061/wedding1_mv2wug.webp",
+      "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015013/birthday_zregul.webp",
+      "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015060/wedding_a1qqvg.webp"
+    ]
   },
   {
     id: 2,
     title: "Birthday Parties",
     shortDescription: "Make birthdays extra special with fun rides, food, and entertainment.",
     image: "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015013/birthday_zregul.webp",
+    gallery: [
+      "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015061/wedding1_mv2wug.webp",
+      "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015013/birthday_zregul.webp",
+      "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015060/wedding_a1qqvg.webp"
+    ]
   },
   {
     id: 3,
     title: "Live Concerts",
     shortDescription: "Host energetic concerts with large crowd capacity and stage setup.",
     image: "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015060/wedding_a1qqvg.webp",
+    gallery: [
+      "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015061/wedding1_mv2wug.webp",
+      "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015013/birthday_zregul.webp",
+      "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015060/wedding_a1qqvg.webp"
+    ]
   },
 ];
 
@@ -28,6 +44,8 @@ const CONTACT_NUMBER = "+91 98765 43210";
 
 const PicnicEvent = () => {
   const [loading, setLoading] = useState(true);
+  const [selectedEvent, setSelectedEvent] = useState(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -64,6 +82,15 @@ const PicnicEvent = () => {
               <h4>{event.title}</h4>
               <p className={styles.description}>{event.shortDescription}</p>
             </div>
+            <span
+              className={styles.seeMore}
+              onClick={() => {
+                setSelectedEvent(event);
+                setCurrentIndex(0);
+              }}
+            >
+              See More Details
+            </span>
           </div>
         ))}
       </div>
@@ -73,6 +100,16 @@ const PicnicEvent = () => {
         For bookings & enquiries:{" "}
         <a href={`tel:${CONTACT_NUMBER}`}>{CONTACT_NUMBER}</a>
       </div>
+
+      {selectedEvent && (
+        <EventModal
+          event={selectedEvent}
+          images={selectedEvent.gallery || [selectedEvent.image]}
+          currentIndex={currentIndex}
+          setCurrentIndex={setCurrentIndex}
+          onClose={() => setSelectedEvent(null)}
+        />
+      )}
     </section>
   );
 };

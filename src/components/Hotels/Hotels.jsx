@@ -414,9 +414,24 @@ const Hotels = () => {
               {/* CONTENT */}
               <div className={styles.cardContent}>
 
-                <h4>{ride.title}</h4>
-                <p className={styles.description}>{ride.shortDescription}</p>
+                <div className={styles.titleRow}>
+                  <h4 className={styles.title}>{ride.title}</h4>
 
+                  <span
+                    className={styles.seeMore}
+                    onClick={() => {
+                      const gallery = [
+                        ...(ride.galleryImages?.map(img => img.url) || [])
+                      ];
+
+                      setSelectedRoom(gallery);
+                      setCurrentIndex(0);
+                    }}
+                  >
+                    See More Details
+                  </span>
+                </div>
+                <p className={styles.description}>{ride.shortDescription}</p>
                 {/* CHECK-IN */}
                 <div className={styles.field}>
                   <label>Check-In :</label>
@@ -555,20 +570,6 @@ const Hotels = () => {
                   </div>
                 </div>
 
-             <span
-  className={styles.seeMore}
-  onClick={() => {
-    const gallery = [
-      ...(ride.galleryImages?.map(img => img.url) || [])
-    ];
-
-    setSelectedRoom(gallery); 
-    setCurrentIndex(0);
-  }}
->
-  See More Details
-</span>
-
                 <button className={styles.addBtn}
                   onClick={() => handleAddToCart(ride)}
                 >
@@ -598,16 +599,16 @@ const Hotels = () => {
       }
 
       {mounted && selectedRoom &&
-  createPortal(
-    <HotelsModal
-      images={selectedRoom}
-      currentIndex={currentIndex}
-      setCurrentIndex={setCurrentIndex}
-      onClose={() => setSelectedRoom(null)}
-    />,
-    document.body
-  )
-}
+        createPortal(
+          <HotelsModal
+            images={selectedRoom}
+            currentIndex={currentIndex}
+            setCurrentIndex={setCurrentIndex}
+            onClose={() => setSelectedRoom(null)}
+          />,
+          document.body
+        )
+      }
 
     </section>
   );

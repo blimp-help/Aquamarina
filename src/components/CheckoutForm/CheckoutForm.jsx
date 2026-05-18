@@ -104,7 +104,6 @@ const CheckoutForm = () => {
                 amount: total,
             }),
         });
-
         const data = await orderRes.json();
 
         if (!data.success) {

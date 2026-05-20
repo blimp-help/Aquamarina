@@ -140,8 +140,12 @@ const CheckoutForm = () => {
                 const verifyData = await verifyRes.json();
 
                 if (verifyData.success) {
-                    alert("Payment successful & verified ✅");
-
+                    const bId = verifyData.booking?.bookingId;
+                    if (bId) {
+                        alert(`Payment successful & verified ✅\nYour Booking ID is: ${bId}\nA ticket has been sent to your email.`);
+                    } else {
+                        alert("Payment successful & verified ✅\nA ticket has been sent to your email.");
+                    }
 
                     dispatch(clearCart());
 

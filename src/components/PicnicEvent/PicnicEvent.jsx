@@ -9,33 +9,33 @@ const events = [
     id: 1,
     title: "Weddings",
     shortDescription: "Celebrate your big day in a beautiful open-air venue with premium arrangements.",
-    image: "/events/indian_wedding.png",
+    image: "/events/indian_wedding.webp",
     gallery: [
-      "/events/indian_wedding.png",
-      "/events/wedding_flat.png",
-      "/events/wedding.png"
+      "/events/indian_wedding.webp",
+      "/events/wedding_flat.webp",
+      "/events/wedding.webp"
     ]
   },
   {
     id: 2,
     title: "Birthday Parties",
     shortDescription: "Make birthdays extra special with fun rides, food, and entertainment.",
-    image: "/events/indian_birthday.png",
+    image: "/events/indian_birthday.webp",
     gallery: [
-      "/events/indian_birthday.png",
-      "/events/birthday_garden.png",
-      "/events/birthday_hall.png",
-      "/events/birthday_flat.png",
+      "/events/indian_birthday.webp",
+      "/events/birthday_garden.webp",
+      "/events/birthday_hall.webp",
+      "/events/birthday_flat.webp",
     ]
   },
   {
     id: 3,
     title: "Live Concerts",
     shortDescription: "Host energetic concerts with large crowd capacity and stage setup.",
-    image: "/events/concert_flat.png",
+    image: "/events/concert_flat.webp",
     gallery: [
-      "/events/concert_flat.png",
-      "/events/concert.png"
+      "/events/concert_flat.webp",
+      "/events/concert.webp"
     ]
   },
 ];

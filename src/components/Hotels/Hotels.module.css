@@ -27,6 +27,9 @@
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 380px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 /* IMAGE */
@@ -113,6 +116,9 @@
 .cardContent {
   padding: 15px;
   text-align: left;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
 .titleRow {
@@ -251,7 +257,7 @@
   transition: all 0.3s ease;
 
   display: block;
-  margin: 0 auto;
+  margin: auto auto 0;
 }
 
 .addBtn:hover {

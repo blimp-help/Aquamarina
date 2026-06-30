@@ -75,12 +75,12 @@
   gap: 12px;
 }
 
-/* ================= SLIDER ================= */
 .slider {
   width: 100%;
   max-width: 850px;
   height: 400px;
-  aspect-ratio: 16 / 9;   /* ✅ keeps image shape perfect */
+  background: #f8f9fa;
+  /* ✅ keeps image shape perfect */
   overflow: hidden;
   border-radius: 12px;
 }
@@ -93,21 +93,18 @@
 
 /* ================= ARROWS ================= */
 .arrow {
-    background: transparent;
-    color: var(--primary-blue);
+  background: transparent;
+  color: var(--primary-blue);
 
-    border: none;
+  border: none;
 
-    width: 50px;
-    height: 50px;
+  width: 50px;
+  height: 50px;
 
-    cursor: pointer;
-    font-size: 30px;
+  cursor: pointer;
+  font-size: 30px;
 }
 
-.arrow:hover {
-  background: rgba(0, 0, 0, 0.8);
-}
 
 /* ================= PAGINATION ================= */
 .pagination {
@@ -152,11 +149,11 @@
     height: 240px;
   }
 
-     .arrow {
-        font-size: 18px;
-        width: 32px;
-        height: 32px;
-    }
+  .arrow {
+    font-size: 18px;
+    width: 32px;
+    height: 32px;
+  }
 }
 
 /* Mobile */
@@ -190,10 +187,10 @@
   }
 
   .arrow {
-        font-size: 16px;
-        width: 28px;
-        height: 28px;
-    }
+    font-size: 16px;
+    width: 28px;
+    height: 28px;
+  }
 
   .dot {
     width: 8px;
@@ -233,7 +230,8 @@
 
   .slider {
     height: 140px;
-    aspect-ratio: 16 / 9; /* keeps image clean */
+    aspect-ratio: 16 / 9;
+    /* keeps image clean */
   }
 
   .sliderImage {
@@ -241,10 +239,10 @@
   }
 
   .arrow {
-        font-size: 14px;
-        width: 24px;
-        height: 24px;
-    }
+    font-size: 14px;
+    width: 24px;
+    height: 24px;
+  }
 
   .pagination {
     gap: 6px;

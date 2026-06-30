@@ -17,7 +17,7 @@ const rides = [
         title: "Single Day Pass",
         adultPrice: 500,
         childPrice: 400,
-        image: "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015033/passimage_iexuzy.webp",
+        image: "/passes/pass_entry.png",
         description: "Individual entry for adults & children."
     },
     {
@@ -27,40 +27,19 @@ const rides = [
         subtype: "group",
         adultPrice: 450,
         childPrice: 200,
-        image: "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015035/picnic_2_rzrzc6.webp",
+        image: "/passes/indian_group.png",
         description: "Max 30 people allowed."
     },
-    // {
-    //     id: 4,
-    //     title: "Group Offer (Weekend)",
-    //     type: "park",
-    //     subtype: "group",
-    //     adultPrice: 450,
-    //     childPrice: 200,
-    //     image: "/passimage.jpg",
-    //     description: "Min 10 people. Access to all rides."
-    // },
-    // {
-    //     id: 5,
-    //     title: "Family Pack",
-    //     type: "park",
-    //     subtype: "family",
-    //     adultPrice: 500,
-    //     childPrice: 300,
-    //     image: "/passimage.jpg",
-    //     description: "Min 4 people. Access to all rides."
-    // },
-    // {
-    //     id: 6,
-    //     title: "Family Pack",
-    //     type: "park",
-    //     subtype: "family",
-    //     adultPrice: 500,
-    //     childPrice: 300,
-    //     image: "/passimage.jpg",
-    //     description: "Min 4 people. Access to all rides."
-    // }
-
+    {
+        id: 3,
+        title: "Family Pack",
+        type: "park",
+        subtype: "family",
+        adultPrice: 500,
+        childPrice: 300,
+        image: "/passes/indian_family.png",
+        description: "Min 4 people. Access to all rides."
+    }
 ];
 const MAX_GROUP = 30;
 

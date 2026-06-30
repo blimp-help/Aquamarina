@@ -90,7 +90,9 @@ const CartDrawer = () => {
                                 {/* Content */}
                                 <div className={styles.details}>
                                     <div className={styles.headerRow}>
-                                        <h4 className={styles.title}>{item.title}</h4>
+                                        <h4 className={styles.title}>
+                                            {item.title} {item.type === "hotel" && `(${item.quantity} ${item.quantity > 1 ? "Rooms" : "Room"})`}
+                                        </h4>
 
                                         <button
                                             className={styles.deleteBtn}

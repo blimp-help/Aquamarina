@@ -28,10 +28,10 @@ const stays = [
         description:
             "Enjoy a cozy wooden retreat designed for comfort and relaxation. With modern amenities and a peaceful atmosphere, it’s the perfect place to unwind after a fun-filled day at the water park.",
     },
-     {
+    {
         title: "Stay with Amazing View",
-        tag: "Twin Bed Sharing Room",
-        image: "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015040/resort2_yetg9d.webp",
+        tag: "Boutique Room",
+        image: "https://res.cloudinary.com/dkzkxte95/image/upload/v1782813328/rooms/mtxd0gmqs1271znzxx2i.webp",
         description:
             "Enjoy a relaxing stay with beautiful views of the pool right from your room. Perfect for guests who love a vibrant atmosphere while staying close to the fun and excitement of the water park.",
     },
@@ -51,7 +51,7 @@ const Rooms = () => {
         0: ["https://res.cloudinary.com/dkzkxte95/image/upload/v1777015040/resort1_jsieth.webp", "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015044/resort8_bcdvq1.webp", "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015048/resort9_w7wvye.webp", "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015048/resort12_tizyxy.webp"],
         1: ["https://res.cloudinary.com/dkzkxte95/image/upload/v1777015049/resort13_ba9z9w.webp", "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015049/resort14_itxkmc.webp"],
         2: ["https://res.cloudinary.com/dkzkxte95/image/upload/v1777015042/resort5_wbfndu.webp", "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015041/resort4_l70y9c.webp", "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015043/resort6_p80bi1.webp", "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015045/resort7_bw6kcs.webp"],
-        3: ["https://res.cloudinary.com/dkzkxte95/image/upload/v1777015040/resort2_yetg9d.webp", "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015040/resort3_hcdod9.webp" ],
+        3: ["https://res.cloudinary.com/dkzkxte95/image/upload/v1782813328/rooms/ryodthxbhbbuwu3vhpde.webp", "https://res.cloudinary.com/dkzkxte95/image/upload/v1782813329/rooms/kvqjogydlpjhlvxsvsjw.webp", "https://res.cloudinary.com/dkzkxte95/image/upload/v1782813329/rooms/jwvbnt3viufhekk0h0iv.webp", "https://res.cloudinary.com/dkzkxte95/image/upload/v1782813330/rooms/hgb8ej432gvoa6mh6lxr.webp"],
     };
 
     const handleClick = () => {

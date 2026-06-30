@@ -44,14 +44,14 @@ const Footer = () => {
                 </div>
 
                 <div className={styles.infoItem}>
-                    <a href="tel:09831203440" className={styles.iconLink}>
+                    <a href="tel:09831189191" className={styles.iconLink}>
                         <div className={styles.icon}>
                             <FaPhoneAlt />
                         </div>
                     </a>
                     <h4>Phone</h4>
-                    <a href="tel:09831203440" className={styles.phoneLink}>
-                        098312 03440
+                    <a href="tel:09831189191" className={styles.phoneLink}>
+                        09831189191
                     </a>
                 </div>
 

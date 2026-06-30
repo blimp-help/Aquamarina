@@ -12,7 +12,7 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 30px;
   margin-top: 40px;
   justify-items: center;
@@ -24,7 +24,7 @@
   background: var(--primary-white);
   border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 480px;
   padding-bottom: 20px;
@@ -111,125 +111,127 @@
 
 /* CONTENT */
 
-.cardContent{
-  padding:15px;
-  text-align:left;
+.cardContent {
+  padding: 15px;
+  text-align: left;
 }
 
-.cardContent h4{
-  font-style:italic;
-  color:var(--primary-blue);
+.cardContent h4 {
+  font-style: italic;
+  color: var(--primary-blue);
 }
 
-.description{
-  font-size:14px;
-  color:#666;
-  margin-bottom:18px;
+.description {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 18px;
 }
 
 /* FIELD */
 
-.field{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  margin:18px 0;
-  gap:12px;
+.field {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 18px 0;
+  gap: 12px;
 }
 
-.field label{
-  font-size:14px;
-  color:#1e5bd8;
-  white-space:nowrap;
+.field label {
+  font-size: 14px;
+  color: #1e5bd8;
+  white-space: nowrap;
 }
 
 
 /* DATE BOX */
 
-.dateBox{
-  position:relative;
-  display:flex;
-  align-items:center;
-  gap:10px;
-  border:2px solid #1e5bd8;
-  border-radius:12px;
-  padding:6px 12px;
-  min-width:200px;
-  cursor:pointer;
+.dateBox {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 2px solid #1e5bd8;
+  border-radius: 12px;
+  padding: 6px 12px;
+  min-width: 200px;
+  cursor: pointer;
 }
 
 /* CALENDAR ICON */
 
-.calendarCircle{
-  width:30px;
-  height:30px;
+.calendarCircle {
+  width: 30px;
+  height: 30px;
 
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  background:var(--primary-blue);
-  color:white;
+  background: var(--primary-blue);
+  color: white;
 
-  border-radius:50%;
+  border-radius: 50%;
 }
 
 /* DATE TEXT */
 
-.dateText{
-  flex:1;
-  font-style:italic;
-  color:var(--primary-blue);
+.dateText {
+  flex: 1;
+  font-style: italic;
+  color: var(--primary-blue);
 }
 
 /* ARROW */
 
-.arrow{
-  cursor:pointer;
-  color:var(--primary-blue);
+.arrow {
+  cursor: pointer;
+  color: var(--primary-blue);
 }
 
 /* HIDDEN DATE INPUT */
-.hiddenDate{
-  position:absolute;
-  top:45px;        /* pushes picker slightly lower */
-  left:0;
+.hiddenDate {
+  position: absolute;
+  top: 45px;
+  /* pushes picker slightly lower */
+  left: 0;
 
-  width:1px;
-  height:1px;
+  width: 1px;
+  height: 1px;
 
-  opacity:0;
-  pointer-events:none;
+  opacity: 0;
+  pointer-events: none;
 }
+
 /* TIME SLOT */
 
-.timeSelect{
-  border:2px solid #1e5bd8;
-  border-radius:10px;
-  padding:6px 10px;
-  font-size:14px;
+.timeSelect {
+  border: 2px solid #1e5bd8;
+  border-radius: 10px;
+  padding: 6px 10px;
+  font-size: 14px;
 }
 
 /* QUANTITY */
 
-.quantity{
-  display:flex;
-  align-items:center;
-  gap:10px;
+.quantity {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.quantity button{
-  width:28px;
-  height:28px;
-  border:none;
-  background:#eee;
-  border-radius:6px;
-  cursor:pointer;
-  font-weight:600;
+.quantity button {
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: #eee;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
 }
 
-.quantity span{
-  font-weight:500;
+.quantity span {
+  font-weight: 500;
 }
 
 /* ADD BUTTON */
@@ -276,47 +278,47 @@
   color: var(--primary-blue);
 }
 
-.dynamicPrice{
-color:var(--primary-blue);
-font-weight:500;
-font-size:16px;
+.dynamicPrice {
+  color: var(--primary-blue);
+  font-weight: 500;
+  font-size: 16px;
 }
 
 /* Quantity pill */
 
-.quantityBox{
-display:flex;
-align-items:center;
-gap:18px;
+.quantityBox {
+  display: flex;
+  align-items: center;
+  gap: 18px;
 
-border:2px solid var(--primary-blue);
-border-radius:30px;
+  border: 2px solid var(--primary-blue);
+  border-radius: 30px;
 
-padding:6px 14px;
+  padding: 6px 14px;
 }
 
 /* Buttons */
 
-.qtyBtn{
-width:34px;
-height:34px;
+.qtyBtn {
+  width: 34px;
+  height: 34px;
 
-border:none;
-border-radius:50%;
+  border: none;
+  border-radius: 50%;
 
-background:var(--primary-blue);
-color:white;
+  background: var(--primary-blue);
+  color: white;
 
-font-size:20px;
-cursor:pointer;
+  font-size: 20px;
+  cursor: pointer;
 }
 
 /* Number */
 
-.qtyNumber{
-font-size:16px;
-font-weight:500;
-color:var(--primary-blue);
+.qtyNumber {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--primary-blue);
 }
 
 .qtyBtn:disabled {
@@ -329,20 +331,20 @@ color:var(--primary-blue);
    TABLET
 ================================ */
 
-@media (max-width:1024px){
+@media (max-width:1024px) {
 
-.section{
-  padding:0px 40px 45px;
-}
+  .section {
+    padding: 0px 40px 45px;
+  }
 
-.grid{
-  grid-template-columns:repeat(2,1fr);
-  gap:25px;
-}
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+  }
 
-.imageWrapper{
-  height:200px;
-}
+  .imageWrapper {
+    height: 200px;
+  }
 
 }
 
@@ -351,59 +353,59 @@ color:var(--primary-blue);
    MOBILE
 ================================ */
 
-@media (max-width:768px){
+@media (max-width:768px) {
 
-.section{
-  padding:0px 25px 30px;
-  text-align:left;
-}
+  .section {
+    padding: 0px 25px 30px;
+    text-align: left;
+  }
 
-.grid{
-  grid-template-columns:1fr;
-  gap:25px;
-}
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
 
-.card{
-  max-width:100%;
-}
+  .card {
+    max-width: 100%;
+  }
 
-/* FIELD */
+  /* FIELD */
 
-.field{
-  flex-direction:column;
-  align-items:flex-start;
-  gap:8px;
-}
+  .field {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
 
-/* DATE FIELD */
+  /* DATE FIELD */
 
-.dateBox{
-  width:100%;
-  max-width:230px;
-  min-width:unset;
-}
+  .dateBox {
+    width: 100%;
+    max-width: 230px;
+    min-width: unset;
+  }
 
-/* TIME SELECT */
+  /* TIME SELECT */
 
-.timeSelect{
-  width:100%;
-  max-width:230px;
-}
+  .timeSelect {
+    width: 100%;
+    max-width: 230px;
+  }
 
-/* PRICE ROW */
+  /* PRICE ROW */
 
-.priceRow{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-}
+  .priceRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+  }
 
-/* KEEP QUANTITY RIGHT */
+  /* KEEP QUANTITY RIGHT */
 
-.quantityBox{
-  margin-left:auto;
-}
+  .quantityBox {
+    margin-left: auto;
+  }
 
 }
 
@@ -412,65 +414,65 @@ color:var(--primary-blue);
    SMALL MOBILE
 ================================ */
 
-@media (max-width:480px){
+@media (max-width:480px) {
 
-.section{
-  padding:0px 18px 25px;
-}
+  .section {
+    padding: 0px 18px 25px;
+  }
 
-.section h2{
-  font-size:24px;
-}
+  .section h2 {
+    font-size: 24px;
+  }
 
-.imageWrapper{
-  height:180px;
-}
+  .imageWrapper {
+    height: 180px;
+  }
 
-.cardContent{
-  padding:14px;
-}
+  .cardContent {
+    padding: 14px;
+  }
 
-.description{
-  font-size:13px;
-}
+  .description {
+    font-size: 13px;
+  }
 
-.price{
-  font-size:18px;
-}
+  .price {
+    font-size: 18px;
+  }
 
-.gst,
-.person{
-  font-size:11px;
-}
+  .gst,
+  .person {
+    font-size: 11px;
+  }
 
-/* DATE BOX */
+  /* DATE BOX */
 
-.dateBox{
-  width:100%;
-  max-width:220px;
-  padding:6px 10px;
-}
+  .dateBox {
+    width: 100%;
+    max-width: 220px;
+    padding: 6px 10px;
+  }
 
-.calendarCircle{
-  width:26px;
-  height:26px;
-}
+  .calendarCircle {
+    width: 26px;
+    height: 26px;
+  }
 
-/* PRICE + QTY */
+  /* PRICE + QTY */
 
-.priceRow{
-  gap:8px;
-}
+  .priceRow {
+    gap: 8px;
+  }
 
-.qtyBtn{
-  width:30px;
-  height:30px;
-  font-size:18px;
-}
+  .qtyBtn {
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
+  }
 
-.qtyNumber{
-  font-size:15px;
-}
+  .qtyNumber {
+    font-size: 15px;
+  }
 
 }
 
@@ -479,52 +481,52 @@ color:var(--primary-blue);
    MINIMUM MOBILE (320px)
 ================================ */
 
-@media (max-width:320px){
+@media (max-width:320px) {
 
-.section{
-  padding:0px 14px 20px;
-}
+  .section {
+    padding: 0px 14px 20px;
+  }
 
-.section h2{
-  font-size:22px;
-}
+  .section h2 {
+    font-size: 22px;
+  }
 
-.imageWrapper{
-  height:160px;
-}
+  .imageWrapper {
+    height: 160px;
+  }
 
-.cardContent{
-  padding:12px;
-}
+  .cardContent {
+    padding: 12px;
+  }
 
-.description{
-  font-size:12px;
-}
+  .description {
+    font-size: 12px;
+  }
 
-/* PRICE ROW */
+  /* PRICE ROW */
 
-.priceRow{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:6px;
-}
+  .priceRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 6px;
+  }
 
-/* QUANTITY */
+  /* QUANTITY */
 
-.quantityBox{
-  gap:10px;
-  padding:5px 10px;
-}
+  .quantityBox {
+    gap: 10px;
+    padding: 5px 10px;
+  }
 
-.qtyNumber{
-  font-size:14px;
-}
+  .qtyNumber {
+    font-size: 14px;
+  }
 
-/* BUTTON */
+  /* BUTTON */
 
-.addBtn{
-  width:100%;
-}
+  .addBtn {
+    width: 100%;
+  }
 
 }

@@ -228,7 +228,9 @@ const CheckoutForm = () => {
                                 />
 
                                 <div className={styles.itemDetails}>
-                                    <p className={styles.title}>{item.title}</p>
+                                    <p className={styles.title}>
+                                        {item.title} {item.type === "hotel" && `(${item.quantity} ${item.quantity > 1 ? "Rooms" : "Room"})`}
+                                    </p>
 
                                     <span className={styles.date}>
                                         {item.type === "hotel"

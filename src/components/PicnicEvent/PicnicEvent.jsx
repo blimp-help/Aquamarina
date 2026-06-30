@@ -9,38 +9,38 @@ const events = [
     id: 1,
     title: "Weddings",
     shortDescription: "Celebrate your big day in a beautiful open-air venue with premium arrangements.",
-    image: "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015061/wedding1_mv2wug.webp",
+    image: "/events/indian_wedding.png",
     gallery: [
-      "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015061/wedding1_mv2wug.webp",
-      "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015013/birthday_zregul.webp",
-      "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015060/wedding_a1qqvg.webp"
+      "/events/indian_wedding.png",
+      "/events/wedding_flat.png",
+      "/events/wedding.png"
     ]
   },
   {
     id: 2,
     title: "Birthday Parties",
     shortDescription: "Make birthdays extra special with fun rides, food, and entertainment.",
-    image: "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015013/birthday_zregul.webp",
+    image: "/events/indian_birthday.png",
     gallery: [
-      "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015061/wedding1_mv2wug.webp",
-      "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015013/birthday_zregul.webp",
-      "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015060/wedding_a1qqvg.webp"
+      "/events/indian_birthday.png",
+      "/events/birthday_garden.png",
+      "/events/birthday_hall.png",
+      "/events/birthday_flat.png",
     ]
   },
   {
     id: 3,
     title: "Live Concerts",
     shortDescription: "Host energetic concerts with large crowd capacity and stage setup.",
-    image: "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015060/wedding_a1qqvg.webp",
+    image: "/events/concert_flat.png",
     gallery: [
-      "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015061/wedding1_mv2wug.webp",
-      "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015013/birthday_zregul.webp",
-      "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015060/wedding_a1qqvg.webp"
+      "/events/concert_flat.png",
+      "/events/concert.png"
     ]
   },
 ];
 
-const CONTACT_NUMBER = "+91 98765 43210";
+const CONTACT_NUMBER = "+91 9831222880";
 
 const PicnicEvent = () => {
   const [loading, setLoading] = useState(true);

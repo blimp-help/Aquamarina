@@ -160,10 +160,14 @@ const Hotels = () => {
   ====================== */
 
   const increaseAdult = (id) => {
+    const room = rooms.find(r => r._id === id);
+    const isBoutique = room?.title?.toLowerCase().includes("boutique");
+    const maxAdultsPerRoom = isBoutique ? 4 : 2;
+
     const current = guests[id]?.adults ?? 1;
     const roomQty = quantities[id] || 1;
 
-    const maxAdults = 2 * roomQty;
+    const maxAdults = maxAdultsPerRoom * roomQty;
 
     if (current >= maxAdults) return;
 
@@ -197,6 +201,10 @@ const Hotels = () => {
   ====================== */
 
   const increaseChild = (id) => {
+    const room = rooms.find(r => r._id === id);
+    const isBoutique = room?.title?.toLowerCase().includes("boutique");
+    if (isBoutique) return;
+
     const current = guests[id]?.children ?? 0;
     const roomQty = quantities[id] || 1;
 
@@ -228,10 +236,10 @@ const Hotels = () => {
     });
   };
 
-  const increaseQty = (id) => {
+  const increaseQty = (id, maxRooms = 10) => {
     const current = quantities[id] || 1;
 
-    if (current >= 10) return; // max rooms
+    if (current >= maxRooms) return; // max rooms
 
     setQuantities({
       ...quantities,
@@ -240,13 +248,18 @@ const Hotels = () => {
   };
 
   const decreaseQty = (id) => {
+    const room = rooms.find(r => r._id === id);
+    const isBoutique = room?.title?.toLowerCase().includes("boutique");
+    const maxAdultsPerRoom = isBoutique ? 4 : 2;
+    const maxChildrenPerRoom = isBoutique ? 0 : 1;
+
     const current = quantities[id] || 1;
     if (current <= 1) return;
 
     const newQty = current - 1;
 
-    const maxAdults = 2 * newQty;
-    const maxChildren = 1 * newQty;
+    const maxAdults = maxAdultsPerRoom * newQty;
+    const maxChildren = maxChildrenPerRoom * newQty;
 
     setQuantities({
       ...quantities,
@@ -397,6 +410,7 @@ const Hotels = () => {
 
           const adults = guests[ride._id]?.adults ?? 1;
           const children = guests[ride._id]?.children ?? 0;
+          const isBoutique = ride.title?.toLowerCase().includes("boutique");
 
           return (
             <div key={ride._id} className={styles.card}>
@@ -512,9 +526,9 @@ const Hotels = () => {
                     </span>
 
                     <button
-                      onClick={() => increaseQty(ride._id)}
+                      onClick={() => increaseQty(ride._id, ride.totalRooms)}
                       className={styles.qtyBtn}
-                      disabled={(quantities[ride._id] || 1) === 10}
+                      disabled={(quantities[ride._id] || 1) >= (ride.totalRooms || 1)}
                     >
                       +
                     </button>
@@ -539,36 +553,39 @@ const Hotels = () => {
                     <button
                       onClick={() => increaseAdult(ride._id)}
                       className={styles.qtyBtn}
-                      disabled={adults === 2 * (quantities[ride._id] || 1)}                    >
+                      disabled={adults === (isBoutique ? 4 : 2) * (quantities[ride._id] || 1)}
+                    >
                       +
                     </button>
                   </div>
                 </div>
 
                 {/* CHILD */}
-                <div className={styles.priceRow}>
-                  <span className={styles.dynamicPrice}>Child:</span>
+                {!isBoutique && (
+                  <div className={styles.priceRow}>
+                    <span className={styles.dynamicPrice}>Child:</span>
 
-                  <div className={styles.quantityBox}>
-                    <button
-                      onClick={() => decreaseChild(ride._id)}
-                      className={styles.qtyBtn}
-                      disabled={children === 0}
-                    >
-                      −
-                    </button>
+                    <div className={styles.quantityBox}>
+                      <button
+                        onClick={() => decreaseChild(ride._id)}
+                        className={styles.qtyBtn}
+                        disabled={children === 0}
+                      >
+                        −
+                      </button>
 
-                    <span className={styles.qtyNumber}>{children}</span>
+                      <span className={styles.qtyNumber}>{children}</span>
 
-                    <button
-                      onClick={() => increaseChild(ride._id)}
-                      className={styles.qtyBtn}
-                      disabled={children === 1 * (quantities[ride._id] || 1)}
-                    >
-                      +
-                    </button>
+                      <button
+                        onClick={() => increaseChild(ride._id)}
+                        className={styles.qtyBtn}
+                        disabled={children === 1 * (quantities[ride._id] || 1)}
+                      >
+                        +
+                      </button>
+                    </div>
                   </div>
-                </div>
+                )}
 
                 <button className={styles.addBtn}
                   onClick={() => handleAddToCart(ride)}

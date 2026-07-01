@@ -21,6 +21,16 @@ export default function EventModal({
     };
   }, []);
 
+  // Preload gallery images for instant transitions
+  useEffect(() => {
+    if (images && images.length > 0) {
+      images.forEach((url) => {
+        const img = new Image();
+        img.src = url;
+      });
+    }
+  }, [images]);
+
   const nextSlide = () => {
     if (!images?.length) return;
     setCurrentIndex((prev) =>

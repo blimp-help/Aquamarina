@@ -205,13 +205,14 @@
 
 .hiddenDate {
   position: absolute;
-  top: 5px;
-  left: -5px;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   opacity: 0;
   cursor: pointer;
-  z-index: 2;
+  z-index: 5;
+  pointer-events: none;
 }
 
 /* TIME SLOT */
@@ -423,15 +424,16 @@
 
   .field {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
     gap: 8px;
+    width: 100%;
   }
 
   /* DATE FIELD */
 
   .dateBox {
     width: 100%;
-    max-width: 230px;
+    max-width: none;
     min-width: unset;
   }
 
@@ -499,7 +501,7 @@
 
   .dateBox {
     width: 100%;
-    max-width: 220px;
+    max-width: none;
     padding: 6px 10px;
   }
 

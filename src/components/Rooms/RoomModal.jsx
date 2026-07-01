@@ -3,6 +3,16 @@ import { FaChevronLeft, FaChevronRight, FaTimes } from "react-icons/fa";
 import styles from "./RoomsModal.module.css";
 import { useEffect } from "react";
 
+const getOptimizedImageUrl = (url, width = 1000) => {
+    if (!url) return "";
+    if (url.includes("cloudinary.com") && !url.includes("/video/")) {
+        if (url.includes("/upload/")) {
+            return url.replace("/upload/", `/upload/f_auto,q_auto,w_${width}/`);
+        }
+    }
+    return url;
+};
+
 export default function RoomModal({
     room,
     images,
@@ -20,6 +30,18 @@ export default function RoomModal({
             document.body.style.overflow = ""; // restore scroll on unmount
         };
     }, []);
+
+    // Preload gallery images for instant transitions
+    useEffect(() => {
+        if (images && images.length > 0) {
+            images.forEach((url) => {
+                if (url && !url.includes("/video/") && !url.endsWith(".mp4")) {
+                    const img = new Image();
+                    img.src = getOptimizedImageUrl(url, 1000);
+                }
+            });
+        }
+    }, [images]);
 
     const nextSlide = () => {
         if (!images || images.length === 0) return;
@@ -57,7 +79,7 @@ export default function RoomModal({
 
                     <div className={styles.slider}>
                         <img
-                            src={images?.[currentIndex] || "/room1.jpg"}
+                            src={getOptimizedImageUrl(images?.[currentIndex] || "/room1.jpg", 1000)}
                             alt="room"
                             className={styles.sliderImage}
                         />

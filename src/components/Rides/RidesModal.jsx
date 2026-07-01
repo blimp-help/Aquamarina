@@ -3,6 +3,20 @@ import { FaChevronLeft, FaChevronRight, FaTimes } from "react-icons/fa";
 import styles from "./RidesModal.module.css";
 import { useEffect } from "react";
 
+const getOptimizedMediaUrl = (url, width = 1000) => {
+    if (!url) return "";
+    if (url.includes("cloudinary.com")) {
+        if (url.includes("/upload/")) {
+            if (url.includes("/video/") || url.endsWith(".mp4")) {
+                return url.replace("/upload/", `/upload/f_auto,q_auto,vc_auto,w_800/`);
+            } else {
+                return url.replace("/upload/", `/upload/f_auto,q_auto,w_${width}/`);
+            }
+        }
+    }
+    return url;
+};
+
 export default function RidesModal({
     ride,
     images,
@@ -19,6 +33,24 @@ export default function RidesModal({
             document.body.style.overflow = ""; // restore scroll on unmount
         };
     }, []);
+
+    // Preload gallery images & videos for instant transitions
+    useEffect(() => {
+        if (images && images.length > 0) {
+            images.forEach((url) => {
+                if (url) {
+                    if (url.includes("/video/") || url.endsWith(".mp4")) {
+                        const video = document.createElement("video");
+                        video.src = getOptimizedMediaUrl(url);
+                        video.preload = "auto";
+                    } else {
+                        const img = new Image();
+                        img.src = getOptimizedMediaUrl(url, 1000);
+                    }
+                }
+            });
+        }
+    }, [images]);
 
     const nextSlide = () => {
         if (!images || images.length === 0) return;
@@ -57,18 +89,17 @@ export default function RidesModal({
                     <div className={styles.slider}>
                         {images?.[currentIndex]?.endsWith(".mp4") ? (
                             <video
-                                key={images[currentIndex]}  // ✅ THIS FIXES IT
+                                key={images[currentIndex]}
                                 className={styles.sliderImage}
+                                src={getOptimizedMediaUrl(images[currentIndex])}
                                 autoPlay
                                 loop
                                 muted
                                 playsInline
-                            >
-                                <source src={images[currentIndex]} type="video/mp4" />
-                            </video>
+                            />
                         ) : (
                             <img
-                                src={images?.[currentIndex]}
+                                src={getOptimizedMediaUrl(images?.[currentIndex], 1000)}
                                 alt="ride"
                                 className={styles.sliderImage}
                             />

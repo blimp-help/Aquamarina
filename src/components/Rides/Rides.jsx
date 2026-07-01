@@ -3,6 +3,16 @@ import React, { useState } from "react";
 import styles from "./Rides.module.css";
 import RidesModal from "./RidesModal";
 
+const getOptimizedImageUrl = (url, width = 1000) => {
+  if (!url) return "";
+  if (url.includes("cloudinary.com") && !url.includes("/video/")) {
+    if (url.includes("/upload/")) {
+      return url.replace("/upload/", `/upload/f_auto,q_auto,w_${width}/`);
+    }
+  }
+  return url;
+};
+
 const rides = [
   {
     image: "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015012/52_1_zku7ch.webp",
@@ -71,7 +81,7 @@ const Rides = () => {
                   setSelectedRide({ ...ride, index });
                   setCurrentIndex(0);
                 }}>
-                <img src={ride.image} alt={ride.title} />
+                <img src={getOptimizedImageUrl(ride.image, 600)} alt={ride.title} loading="lazy" />
 
                 <div className={styles.cardContent}>
                   <h3>{ride.title}</h3>

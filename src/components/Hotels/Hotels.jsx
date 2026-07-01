@@ -11,6 +11,15 @@ import { toggleCart } from "@/store/uiSlice";
 import { createPortal } from "react-dom";
 import HotelsModal from "./HotelsModal";
 
+const getOptimizedImageUrl = (url, width = 1000) => {
+  if (!url) return "";
+  if (url.includes("cloudinary.com") && !url.includes("/video/")) {
+    if (url.includes("/upload/")) {
+      return url.replace("/upload/", `/upload/f_auto,q_auto,w_${width}/`);
+    }
+  }
+  return url;
+};
 
 const hotelGallery = [
   "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015024/hotel5_zzeuve.webp",
@@ -396,10 +405,11 @@ const Hotels = () => {
         {hotelGallery.map((img, index) => (
           <img
             key={index}
-            src={img}
+            src={getOptimizedImageUrl(img, 300)}
             className={styles.galleryImg}
             onClick={() => setSelectedImage(img)}
             alt="hotel"
+            loading="lazy"
           />
         ))}
       </div>
@@ -417,7 +427,7 @@ const Hotels = () => {
 
               {/* IMAGE */}
               <div className={styles.imageWrapper}>
-                <img src={ride.featureImage.url} alt={ride.title} />
+                <img src={getOptimizedImageUrl(ride.featureImage.url, 600)} alt={ride.title} loading="lazy" />
 
                 <div className={styles.priceTag}>
                   <div className={styles.price}>₹{ride.price}/-</div>
@@ -606,7 +616,7 @@ const Hotels = () => {
             onClick={() => setSelectedImage(null)}
           >
             <img
-              src={selectedImage}
+              src={getOptimizedImageUrl(selectedImage, 1200)}
               className={styles.modalImg}
               onClick={(e) => e.stopPropagation()}
             />

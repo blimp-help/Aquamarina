@@ -17,7 +17,7 @@ const rides = [
         title: "Single Day Pass",
         adultPrice: 500,
         childPrice: 400,
-        image: "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015033/passimage_iexuzy.webp",
+        image: "https://res.cloudinary.com/dkzkxte95/image/upload/v1783403817/WhatsApp_Image_2026-06-30_at_13.02.15_ht3qh3.jpg",
         description: "Individual entry for adults & children."
     },
     // {

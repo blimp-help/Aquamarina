@@ -34,7 +34,8 @@
 
 .imageWrapper {
   position: relative;
-  height: 300px;
+  width: 100%;
+  aspect-ratio: 934 / 748;
   overflow: hidden;
 }
 
@@ -342,9 +343,7 @@
     gap: 25px;
   }
 
-  .imageWrapper {
-    height: 200px;
-  }
+
 
 }
 
@@ -425,9 +424,7 @@
     font-size: 24px;
   }
 
-  .imageWrapper {
-    height: 180px;
-  }
+
 
   .cardContent {
     padding: 14px;
@@ -492,9 +489,7 @@
     font-size: 22px;
   }
 
-  .imageWrapper {
-    height: 160px;
-  }
+
 
   .cardContent {
     padding: 12px;

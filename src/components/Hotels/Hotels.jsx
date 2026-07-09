@@ -10,6 +10,7 @@ import Spinner from "../Spinners/Spinner";
 import { toggleCart } from "@/store/uiSlice";
 import { createPortal } from "react-dom";
 import HotelsModal from "./HotelsModal";
+import DatePicker from "../DatePicker/DatePicker";
 
 const getOptimizedImageUrl = (url, width = 1000) => {
   if (!url) return "";
@@ -34,6 +35,7 @@ const Hotels = () => {
   const [rooms, setRooms] = useState([]);
 
   const [dates, setDates] = useState({});
+  const [activeDatePicker, setActiveDatePicker] = useState(null);
   const [guests, setGuests] = useState({});
   const [quantities, setQuantities] = useState({});
   const [loading, setLoading] = useState(true);
@@ -118,8 +120,6 @@ const Hotels = () => {
 
   const dispatch = useDispatch();
 
-  const dateRefs = useRef({});
-
   const today = new Date().toISOString().split("T")[0];
 
   const calculateDays = (checkIn, checkOut) => {
@@ -134,22 +134,20 @@ const Hotels = () => {
     // Minimum 1 day booking
     return days <= 0 ? 1 : days;
   };
+
   const handleDateChange = (id, value) => {
-    setDates({ ...dates, [id]: value });
-  };
-
-  const openCalendar = (id) => {
-    const input = dateRefs.current[id];
-
-    if (!input) return;
-
-    // modern browsers
-    if (input.showPicker) {
-      input.showPicker();
-    } else {
-      input.focus();
-      input.click();
+    const updatedDates = { ...dates, [id]: value };
+    
+    // If check-in changed, ensure check-out is at least one day after
+    if (id.startsWith("in-")) {
+      const roomId = id.replace("in-", "");
+      const outId = `out-${roomId}`;
+      const checkOutVal = dates[outId];
+      if (checkOutVal && moment(value).isSameOrAfter(moment(checkOutVal))) {
+        updatedDates[outId] = moment(value).add(1, "day").format("YYYY-MM-DD");
+      }
     }
+    setDates(updatedDates);
   };
 
   const formatDate = (date) => {
@@ -462,7 +460,7 @@ const Hotels = () => {
 
                   <div
                     className={styles.dateBox}
-                    onClick={() => openCalendar(`in-${ride._id}`)}
+                    onClick={() => setActiveDatePicker(`in-${ride._id}`)}
                   >
                     <div className={styles.calendarCircle}>
                       <FaCalendarAlt />
@@ -473,18 +471,15 @@ const Hotels = () => {
                     </span>
 
                     <FiChevronDown className={styles.arrow} />
-
-                    <input
-                      ref={(el) => (dateRefs.current[`in-${ride._id}`] = el)}
-                      type="date"
-                      className={styles.hiddenDate}
-                      min={today}
-                      value={dates[`in-${ride._id}`] || ""}
-                      onChange={(e) =>
-                        handleDateChange(`in-${ride._id}`, e.target.value)
-                      }
-                    />
                   </div>
+
+                  <DatePicker
+                    isOpen={activeDatePicker === `in-${ride._id}`}
+                    onClose={() => setActiveDatePicker(null)}
+                    value={dates[`in-${ride._id}`]}
+                    onChange={(val) => handleDateChange(`in-${ride._id}`, val)}
+                    minDate={today}
+                  />
                 </div>
 
                 {/* CHECK-OUT */}
@@ -493,7 +488,7 @@ const Hotels = () => {
 
                   <div
                     className={styles.dateBox}
-                    onClick={() => openCalendar(`out-${ride._id}`)}
+                    onClick={() => setActiveDatePicker(`out-${ride._id}`)}
                   >
                     <div className={styles.calendarCircle}>
                       <FaCalendarAlt />
@@ -504,18 +499,15 @@ const Hotels = () => {
                     </span>
 
                     <FiChevronDown className={styles.arrow} />
-
-                    <input
-                      ref={(el) => (dateRefs.current[`out-${ride._id}`] = el)}
-                      type="date"
-                      className={styles.hiddenDate}
-                      min={today}
-                      value={dates[`out-${ride._id}`] || ""}
-                      onChange={(e) =>
-                        handleDateChange(`out-${ride._id}`, e.target.value)
-                      }
-                    />
                   </div>
+
+                  <DatePicker
+                    isOpen={activeDatePicker === `out-${ride._id}`}
+                    onClose={() => setActiveDatePicker(null)}
+                    value={dates[`out-${ride._id}`]}
+                    onChange={(val) => handleDateChange(`out-${ride._id}`, val)}
+                    minDate={dates[`in-${ride._id}`] || today}
+                  />
                 </div>
 
                 {/* Quantity */}

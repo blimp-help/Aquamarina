@@ -212,7 +212,6 @@
   opacity: 0;
   cursor: pointer;
   z-index: 5;
-  pointer-events: none;
 }
 
 /* TIME SLOT */

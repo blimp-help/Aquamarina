@@ -8,6 +8,7 @@ import { addToCart } from "@/store/cartSlice";
 import moment from "moment";
 import Spinner from "../Spinners/Spinner";
 import { toggleCart } from "@/store/uiSlice";
+import DatePicker from "../DatePicker/DatePicker";
 
 const rides = [
     {
@@ -37,33 +38,15 @@ const MAX_GROUP = 30;
 const ParkPass = () => {
 
     const [dates, setDates] = useState({});
+    const [activeDatePicker, setActiveDatePicker] = useState(null);
     const [quantities, setQuantities] = useState({});
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(true);
     const [adultQty, setAdultQty] = useState({});
     const [childQty, setChildQty] = useState({});
 
-
-
-
-    const dateRefs = useRef({});
-
     const handleDateChange = (id, value) => {
         setDates({ ...dates, [id]: value });
-    };
-
-    const openCalendar = (id) => {
-        const input = dateRefs.current[id];
-
-        if (!input) return;
-
-        // modern browsers
-        if (input.showPicker) {
-            input.showPicker();
-        } else {
-            input.focus();
-            input.click();
-        }
     };
 
     const formatDate = (date) => {
@@ -138,7 +121,7 @@ const ParkPass = () => {
                 adults,
                 children,
                 quantity: totalPeople, // derived
-                date: today,
+                date: date || today,
             })
         );
 
@@ -254,7 +237,7 @@ const ParkPass = () => {
 
                                 <div
                                     className={styles.dateBox}
-                                    onClick={() => openCalendar(ride.id)}
+                                    onClick={() => setActiveDatePicker(ride.id)}
                                 >
                                     <div className={styles.calendarCircle}>
                                         <FaCalendarAlt />
@@ -265,19 +248,15 @@ const ParkPass = () => {
                                     </span>
 
                                     <FiChevronDown className={styles.arrow} />
-
-                                    <input
-                                        ref={(el) => (dateRefs.current[ride.id] = el)}
-                                        type="date"
-                                        className={styles.hiddenDate}
-                                        min={today}
-                                        value={dates[ride.id] || ""}
-                                        onChange={(e) =>
-                                            handleDateChange(ride.id, e.target.value)
-                                        }
-                                        onClick={(e) => e.stopPropagation()}
-                                    />
                                 </div>
+
+                                <DatePicker
+                                    isOpen={activeDatePicker === ride.id}
+                                    onClose={() => setActiveDatePicker(null)}
+                                    value={dates[ride.id]}
+                                    onChange={(val) => handleDateChange(ride.id, val)}
+                                    minDate={today}
+                                />
                             </div>
 
                             {/* PRICE + QUANTITY */}

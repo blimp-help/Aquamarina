@@ -8,32 +8,28 @@ import RoomModal from "./RoomModal";
 
 const stays = [
     {
-        title: "Rustic Luxury Stay",
-        tag: "Log Huts Premium",
+        tag: "Log Hut Premium",
         image: "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015050/room1_hinkg6.webp",
         description:
-            "Enjoy a cozy wooden retreat designed for comfort and relaxation. With modern amenities and a peaceful atmosphere, it’s the perfect place to unwind after a fun-filled day at the water park.",
+            "Escape to our cozy log hut room with a beautiful garden view. Wake up to fresh air and scores of nature. Enjoy a peaceful stay surrounded by lush greenery.",
     },
     {
-        title: "Stay with Amazing View",
-        tag: "Mud Hut Premium",
+        tag: "Premium Mud House",
         image: "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015049/resort13_ba9z9w.webp",
         description:
-            "Enjoy a relaxing stay with beautiful views of the pool right from your room. Perfect for guests who love a vibrant atmosphere while staying close to the fun and excitement of the water park.",
+            "Experience the charm of a traditional mud hut with premium comfort. Relax in a spacious room overlooking a lush, serene garden.",
     },
     {
-        title: "Rustic Luxury Stay",
-        tag: "Deluxe room",
+        tag: "Deluxe Room",
         image: "https://res.cloudinary.com/dkzkxte95/image/upload/v1777015042/resort5_wbfndu.webp",
         description:
-            "Enjoy a cozy wooden retreat designed for comfort and relaxation. With modern amenities and a peaceful atmosphere, it’s the perfect place to unwind after a fun-filled day at the water park.",
+            "Our Deluxe Room is designed for comfort, whether you're traveling for business, an office outing, or a family stay. Enjoy spacious interiors, modern amenities, and a relaxing ambiance. Ideal for corporate guests, families, and leisure travelers alike.",
     },
     {
-        title: "Stay with Amazing View",
         tag: "Boutique Room",
         image: "https://res.cloudinary.com/dkzkxte95/image/upload/v1782813328/rooms/mtxd0gmqs1271znzxx2i.webp",
         description:
-            "Enjoy a relaxing stay with beautiful views of the pool right from your room. Perfect for guests who love a vibrant atmosphere while staying close to the fun and excitement of the water park.",
+            "Perfect for couples, solo travelers, and nature lovers seeking a unique escape.Experience a harmonious blend of the earthiness and serene natural beauty with porch area. Great spot to have a beer with your friend.",
     },
 ];
 
@@ -79,7 +75,7 @@ const Rooms = () => {
 
                         {/* TEXT */}
                         <div className={styles.textCard}>
-                            <h3>{stay.title}</h3>
+                            {/* <h3>{stay.title}</h3> */}
 
                             <p>{stay.description}</p>
 

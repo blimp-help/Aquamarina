@@ -21,6 +21,17 @@ const DatePicker = ({ isOpen, onClose, value, onChange, minDate }) => {
     }
   }, [isOpen, value, minDate]);
 
+  // Prevent background scrolling when open
+  useEffect(() => {
+    if (isOpen) {
+      const originalStyle = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = originalStyle;
+      };
+    }
+  }, [isOpen]);
+
   if (!isOpen || !mounted) return null;
 
   const handlePrevMonth = () => {

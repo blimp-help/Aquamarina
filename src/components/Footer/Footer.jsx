@@ -39,7 +39,7 @@ const Footer = () => {
                         rel="noopener noreferrer"
                         className={styles.addressLink}
                     >
-                        Aqua Marina Water Park
+                        Kanagarh, Hooghly Station, South Naldanga 712123
                     </a>
                 </div>
 

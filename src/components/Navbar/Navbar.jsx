@@ -39,13 +39,13 @@ const Navbar = () => {
       {/* Top Bar */}
       <div className={styles.topbar}>
         <div className={styles.topbarContent}>
-          <span>⚙ Summer Offer 20% off</span>
-          <span>⚙ Summer Offer 20% off</span>
-          <span>⚙ Summer Offer 20% off</span>
-          <span>⚙ Summer Offer 20% off</span>
-          <span>⚙ Summer Offer 20% off</span>
-          <span>⚙ Summer Offer 20% off</span>
-          <span>⚙ Summer Offer 20% off</span>
+          <span>⚙ Park pass starts at 500 only (tax incl)</span>
+          <span>⚙ Park pass starts at 500 only (tax incl)</span>
+          <span>⚙ Park pass starts at 500 only (tax incl)</span>
+          <span>⚙ Park pass starts at 500 only (tax incl)</span>
+          <span>⚙ Park pass starts at 500 only (tax incl)</span>
+          {/* <span>⚙ Park pass starts at 500 only (tax incl)</span> */}
+          {/* <span>⚙ Park pass starts at 500 only (tax incl)</span> */}
 
 
         </div>
